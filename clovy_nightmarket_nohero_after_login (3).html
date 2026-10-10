@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CLOVY — second life, better style</title>
+<style>
+:root{--ink:#202a40;--muted:#70788a;--line:#e6e8ed;--bg:#f7f8fb;--brand:#5b55d9;--brand2:#eeedff;--white:#fff;--good:#16794b;--danger:#c03948;--shadow:0 10px 30px #202a4010}
+*{box-sizing:border-box}body{margin:0;font:15px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--ink);background:var(--bg)}button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:12px;padding:10px 14px;font-weight:650;background:var(--brand);color:#fff}button:hover{filter:brightness(.96)}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #aaa5ff;outline-offset:2px}button:disabled{opacity:.45;cursor:not-allowed}.secondary{background:#f0f1f6;color:var(--ink)}.ghost{background:transparent;color:var(--ink)}.danger{background:#fff0f1;color:var(--danger)}.small{padding:7px 10px;font-size:13px}.wrap{max-width:1180px;margin:auto;padding:0 22px}.top{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}.toprow{height:72px;display:flex;align-items:center;gap:22px}.logo{font-size:27px;font-weight:900;letter-spacing:-1.5px;color:var(--ink);cursor:pointer}.logo span{color:var(--brand)}.search{flex:1;position:relative}.search input{width:100%;border:1px solid var(--line);border-radius:14px;background:#f8f8fb;padding:12px 15px 12px 42px;outline:none}.search:before{content:'⌕';position:absolute;left:15px;top:5px;font-size:25px;color:var(--muted)}.nav{display:flex;gap:7px;align-items:center}.nav button{white-space:nowrap}.userpill{display:flex;align-items:center;gap:8px;background:#f4f4fa;border-radius:14px;padding:6px 10px}.avatar{width:32px;height:32px;border-radius:50%;background:#e8e6ff;color:var(--brand);display:inline-flex;align-items:center;justify-content:center;font-weight:800;flex-shrink:0}.hero{padding:28px 0 22px}.hero-inner{background:radial-gradient(circle at 85% 20%,#ffffffc9 0,transparent 25%),linear-gradient(120deg,#e8e7ff,#f3eaff 65%,#fff);border-radius:24px;padding:32px;display:flex;align-items:center;justify-content:space-between;gap:20px;overflow:hidden}.hero h1{font-size:clamp(28px,4vw,46px);line-height:1.05;letter-spacing:-1.5px;margin:0 0 12px;max-width:570px}.hero p{color:#646a7c;margin:0 0 20px;max-width:540px}.hero-mark{font-size:110px;opacity:.85;transform:rotate(-8deg);padding:0 28px}.cats{display:flex;gap:9px;overflow:auto;padding:0 0 22px}.cat{white-space:nowrap;background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:999px}.cat.active{background:var(--ink);color:#fff;border-color:var(--ink)}.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:6px 0 17px}.section-head h2{font-size:23px;margin:0;letter-spacing:-.5px}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;padding-bottom:42px}.card{background:#fff;border:1px solid var(--line);border-radius:19px;overflow:hidden;box-shadow:0 2px 8px #202a4005;min-width:0;transition:transform .18s ease,box-shadow .18s ease}.card:hover{transform:translateY(-3px);box-shadow:0 12px 28px #202a4014}.photo{width:100%;aspect-ratio:4/4.5;background:#f0f1f6;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:pointer}.photo img{width:100%;height:100%;object-fit:cover}.photo .emoji{font-size:64px}.heart{position:absolute;top:10px;right:10px;border-radius:50%;width:37px;height:37px;padding:0;background:#ffffffed;color:#41465b;font-size:20px;box-shadow:0 2px 8px #0001}.heart.on{color:#e23e65}.card-body{padding:12px}.price{font-weight:850;font-size:18px}.oldprice{text-decoration:line-through;color:#9da2b0;font-size:13px;margin-left:5px}.item-title{margin:4px 0 8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.meta{font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:6px}.badge{font-size:11px;border-radius:6px;background:#f1f1f7;padding:3px 6px}.empty{grid-column:1/-1;background:#fff;border:1px dashed #cfd3df;border-radius:18px;padding:38px;text-align:center;color:var(--muted)}.page{padding:28px 0 50px;min-height:65vh}.panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:18px}.panel h2,.panel h3{margin-top:0}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:13px;font-weight:750;color:#4f5669}.field input,.field select,.field textarea{width:100%;border:1px solid #dfe2e9;border-radius:11px;padding:11px 12px;background:#fff;outline:none}.field textarea{min-height:90px;resize:vertical}.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--brand);box-shadow:0 0 0 3px #5b55d918}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.notice{background:#fff8dd;border:1px solid #f2e5a9;border-radius:12px;padding:12px 14px;color:#685718;font-size:13px}.success{color:var(--good)}.tablelist{display:flex;flex-direction:column;gap:10px}.listrow{display:flex;align-items:center;gap:13px;padding:12px;border:1px solid var(--line);border-radius:13px}.thumb{width:64px;height:70px;border-radius:9px;object-fit:cover;background:#f1f2f6;display:flex;align-items:center;justify-content:center;font-size:25px;flex-shrink:0}.grow{flex:1;min-width:0}.grow strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.grow p{margin:4px 0 0;font-size:13px;color:var(--muted)}.profilehead{display:flex;align-items:center;gap:15px;margin-bottom:20px}.avatar.big{width:62px;height:62px;font-size:22px}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:17px}.tabs button.active{background:var(--ink);color:white}.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}.chatbox{border:1px solid var(--line);border-radius:14px;overflow:hidden}.chathead{padding:13px;background:#f7f7fb;border-bottom:1px solid var(--line);font-weight:750}.messages{height:260px;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:9px}.bubble{max-width:80%;padding:9px 12px;border-radius:13px;background:#f0f1f6;align-self:flex-start;overflow-wrap:anywhere}.bubble.mine{background:#e9e7ff;align-self:flex-end}.sendrow{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line)}.sendrow input{min-width:0;flex:1;border:1px solid var(--line);border-radius:10px;padding:10px}.modalback{position:fixed;inset:0;background:#11182788;z-index:30;display:flex;align-items:center;justify-content:center;padding:18px}.modal{background:#fff;border-radius:20px;max-width:760px;width:100%;max-height:92vh;overflow:auto;padding:22px;position:relative}.close{position:absolute;right:15px;top:15px;background:#f0f1f6;color:var(--ink);width:36px;height:36px;padding:0;font-size:22px}.detailgrid{display:grid;grid-template-columns:1fr 1fr;gap:24px}.detailphoto{width:100%;aspect-ratio:4/4.5;object-fit:cover;border-radius:15px;background:#f0f1f6}.detailphoto.emoji{display:flex;align-items:center;justify-content:center;font-size:90px}.footer{border-top:1px solid var(--line);padding:22px 0;color:var(--muted);font-size:12px}.hidden{display:none!important}
+.notif-pop{position:fixed;right:max(18px,calc((100vw - 1180px)/2 + 18px));top:78px;width:min(390px,calc(100vw - 28px));max-height:72vh;overflow:auto;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 18px 55px #202a4025;z-index:25;padding:15px}
+.notif-item{display:flex;gap:10px;padding:12px 4px;border-bottom:1px solid var(--line);align-items:flex-start}
+.notif-item:last-child{border-bottom:0}.notif-icon{width:36px;height:36px;border-radius:12px;background:#eeedff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.notif-item.unread{background:#f8f7ff;border-radius:10px;padding-left:8px;padding-right:8px}.notif-item p{margin:3px 0;color:var(--muted);font-size:12px}
+position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#202a40;color:#fff;padding:12px 18px;border-radius:12px;z-index:50;box-shadow:var(--shadow);max-width:90vw}.loginbox{max-width:520px;margin:40px auto}.authhint{font-size:13px;color:var(--muted);margin-top:12px}.labelrow{display:flex;justify-content:space-between;gap:12px;align-items:center}
+@media(max-width:900px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.nav .optional{display:none}.hero-mark{font-size:75px;padding:0 5px}.toprow{gap:12px}}
+@media(max-width:650px){.wrap{padding:0 13px}.toprow{height:auto;min-height:66px;flex-wrap:wrap;padding:10px 0}.logo{font-size:24px}.search{order:3;flex-basis:100%}.nav{margin-left:auto}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.hero-inner{padding:24px 19px}.hero-mark{display:none}.hero h1{font-size:32px}.formgrid,.two,.detailgrid{grid-template-columns:1fr}.field.full{grid-column:auto}.panel{padding:16px}.section-head h2{font-size:20px}.userpill .username{display:none}}
+
+/* CLOVY STUDIO DESIGN SYSTEM */
+:root{--ink:#15172a;--muted:#74778b;--line:#e9e9f2;--bg:#f7f7fc;--brand:#6554f4;--brand2:#eeebff;--white:#fff;--good:#13845a;--danger:#d53d68;--shadow:0 14px 40px #24204b0b}
+body{background:radial-gradient(ellipse at 12% 0%,#f0edff 0,transparent 28%),radial-gradient(ellipse at 90% 15%,#fff0f5 0,transparent 25%),#f8f8fc;color:var(--ink);letter-spacing:-.12px}
+.top{background:#ffffffd9;backdrop-filter:blur(18px);border-bottom:1px solid #e6e4f3;box-shadow:0 5px 24px #241e4a08}
+.toprow{height:78px;gap:20px}
+.logo{font-size:31px;font-weight:950;letter-spacing:-2px;background:linear-gradient(120deg,#6554f4 0%,#a347d8 48%,#f26b91 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.logo span{color:inherit}
+.search input{background:#f5f5fb;border:1px solid transparent;border-radius:16px;padding:14px 17px 14px 44px;transition:.2s}
+.search input:focus{background:#fff;border-color:#c7c0ff;box-shadow:0 0 0 4px #6554f414}
+.search:before{content:'⌕';font-size:28px;top:7px;color:#77728f}
+button{border-radius:13px;background:linear-gradient(135deg,#6b5af7,#5543df);box-shadow:0 5px 13px #6554f426;transition:transform .16s,box-shadow .16s,filter .16s}
+button:hover{filter:brightness(1.02);transform:translateY(-1px);box-shadow:0 8px 18px #6554f42b}
+button:active{transform:translateY(0)}
+button.secondary,.cat{background:#fff;color:#35334c;border:1px solid #e6e4f1;box-shadow:none}
+button.secondary:hover,.cat:hover{background:#f3f1ff;border-color:#d5d0ff;box-shadow:none}
+button.ghost{box-shadow:none}
+.userpill{background:#f2f0ff;border:1px solid #e5e0ff;padding:6px 11px 6px 6px;border-radius:999px}
+.avatar{background:linear-gradient(135deg,#dcd8ff,#f6dff0);color:#4d3bd3}
+.hero{padding:30px 0 24px}
+.hero-inner{min-height:310px;position:relative;border-radius:30px;padding:42px;background:linear-gradient(115deg,#e8e6ff 0%,#f2e8ff 42%,#ffeaf1 100%);box-shadow:0 18px 50px #7562d414;border:1px solid #fff}
+.hero-inner:after{content:'C';position:absolute;right:14%;top:-80px;font-size:360px;line-height:1;font-weight:950;color:#ffffff65;transform:rotate(-13deg);pointer-events:none}
+.hero-inner>div:first-child{position:relative;z-index:1}
+.hero h1{font-size:clamp(34px,4.7vw,58px);letter-spacing:-2.8px;max-width:630px;line-height:.99;margin-bottom:18px}
+.hero p{font-size:16px;line-height:1.65;color:#625e7b;max-width:520px}
+.hero-mark{font-size:122px;color:#6554f4;filter:drop-shadow(0 20px 16px #6554f426);z-index:1}
+.cats{padding-bottom:26px;gap:10px}
+.cat{padding:11px 17px;border-radius:999px;font-weight:750;white-space:nowrap}
+.cat.active{background:#1b1932;color:white;border-color:#1b1932}
+.section-head{margin:7px 0 18px}
+.section-head h2{font-size:26px;letter-spacing:-.9px;font-weight:850}
+.grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:17px;padding-bottom:48px}
+.card{border:1px solid #ecebf4;border-radius:20px;box-shadow:0 5px 18px #28204407;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+.card:hover{transform:translateY(-5px);box-shadow:0 18px 38px #30245b16;border-color:#dcd7ff}
+.photo{background:linear-gradient(145deg,#f2f0ff,#fff1f5);aspect-ratio:4/4.7}
+.photo .emoji{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:76px;background:radial-gradient(circle at 50% 35%,#ffffff 0,transparent 42%),linear-gradient(145deg,#f0edff,#ffeef4);transition:transform .25s}
+.card:hover .photo .emoji{transform:scale(1.05)}
+.photo img{transition:transform .3s}.card:hover .photo img{transform:scale(1.035)}
+.heart{width:39px;height:39px;display:flex;align-items:center;justify-content:center;background:#ffffffeb;color:#29273e;border:1px solid #ffffff;box-shadow:0 4px 12px #1e174018;font-size:22px}
+.heart.on{color:#f04477;background:#fff1f5}
+.card-body{padding:13px 13px 15px}
+.price{font-size:19px;font-weight:900;letter-spacing:-.5px}
+.item-title{font-weight:650;font-size:13px;color:#4f5065;margin:5px 0 10px}
+.meta{font-size:11px;color:#85869a}
+.badge{background:#f0edff;color:#6554f4;font-weight:750}
+.panel{border:1px solid #e9e7f3;border-radius:22px;box-shadow:0 10px 35px #30245b07;padding:25px}
+.field input,.field select,.field textarea{border-color:#e2e0ee;border-radius:13px;padding:12px 14px}
+.field label{color:#45445c}
+.empty{border-radius:22px;background:#fff;border:1px dashed #d8d4ee;padding:48px}
+.notice{background:linear-gradient(100deg,#f2f0ff,#fff6f8);border:1px solid #e7e0ff;border-radius:14px;color:#62558e}
+.footer{background:#fff9;border-top-color:#eae8f3;margin-top:15px}
+.notif-pop{border-color:#e8e3fa;box-shadow:0 24px 80px #28204425;border-radius:20px}
+.notif-icon{background:linear-gradient(135deg,#ece8ff,#ffeaf2);color:#6554f4}
+.listrow{border-color:#eeedf5;border-radius:15px}
+.thumb{border-radius:12px;background:linear-gradient(135deg,#eeebff,#fff0f5)}
+.modal{border:1px solid #ece8f8;border-radius:24px;box-shadow:0 25px 80px #12102635}
+.detailphoto{border-radius:18px}
+@media(max-width:1100px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:900px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.hero-inner{padding:30px}.hero-inner:after{right:2%;font-size:280px}}
+@media(max-width:650px){.toprow{min-height:70px}.logo{font-size:26px}.hero{padding-top:18px}.hero-inner{padding:27px 20px;min-height:0;border-radius:23px}.hero h1{font-size:36px;letter-spacing:-1.8px}.hero-inner:after{font-size:190px;right:-3%;top:-25px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.photo{aspect-ratio:4/4.8}.card-body{padding:11px}.section-head h2{font-size:22px}.panel{padding:17px}}
+
+
+/* CLOVY — EDITORIAL MARKETPLACE REDESIGN */
+:root{--ink:#191725;--muted:#777384;--line:#e8e4e0;--bg:#f7f5f2;--brand:#6c4cf6;--brand2:#f0ebff;--white:#fff;--shadow:0 16px 45px #271a260d}
+body{background:#f7f5f2;color:#191725;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:-.2px}
+.top{background:#fbfaf7ed;border-bottom:1px solid #e9e4de;backdrop-filter:blur(22px);box-shadow:0 5px 25px #241e1a08}
+.toprow{height:78px;gap:22px}
+.logo{font-size:32px;font-weight:950;letter-spacing:-2.2px;background:linear-gradient(120deg,#5d42e8,#b45aa6 58%,#ef8068);-webkit-background-clip:text;background-clip:text;color:transparent}
+.logo span{color:inherit}
+.search input{background:#f0ede9;border:1px solid transparent;border-radius:999px;padding:14px 20px 14px 46px}
+.search input:focus{background:#fff;border-color:#d6c8ff;box-shadow:0 0 0 4px #6c4cf615}
+.search:before{content:'⌕';font-size:28px;left:17px;top:7px;color:#777080}
+button{border-radius:999px;background:#6c4cf6;box-shadow:0 5px 14px #6c4cf626}
+button.secondary,.cat{background:#fff;color:#292534;border:1px solid #e9e3de;box-shadow:none}
+button.secondary:hover,.cat:hover{background:#f1edff;border-color:#d8ccff;box-shadow:none}
+.userpill{background:#fff;border:1px solid #e9e3de;border-radius:999px}
+.avatar{background:linear-gradient(135deg,#e2d9ff,#ffe1df);color:#5940d7}
+.hero{padding:26px 0 25px}
+.hero-inner{position:relative;min-height:365px;overflow:hidden;border-radius:28px;padding:48px;background:#e9e1d7 url('https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1800&q=85') center 42%/cover no-repeat;box-shadow:0 20px 60px #251b2612;border:0}
+.hero-inner:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#f8f2e9f2 0%,#f8f2e9df 43%,#f8f2e92e 78%,#f8f2e905 100%);z-index:0}
+.hero-inner:after{content:"";position:absolute;inset:auto 0 0;height:100px;background:linear-gradient(0deg,#19172516,transparent);pointer-events:none}
+.hero-inner>div:first-child{position:relative;z-index:2}
+.hero h1{font-size:clamp(38px,5vw,66px);line-height:.96;letter-spacing:-3.8px;max-width:640px;color:#201b29;margin-bottom:20px}
+.hero p{font-size:16px;line-height:1.7;color:#5f5965;max-width:500px;margin-bottom:23px}
+.hero-mark{position:relative;z-index:2;color:#fff;font-size:118px;text-shadow:0 10px 35px #0003}
+.cats{gap:9px;padding-bottom:25px}
+.cat{padding:11px 17px;font-size:13px;font-weight:750}
+.cat.active{background:#211b2b;color:#fff;border-color:#211b2b}
+.section-head{margin:10px 0 18px}
+.section-head h2{font-size:27px;letter-spacing:-1.1px;font-weight:900}
+.grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:18px}
+.card{background:#fff;border:1px solid #ebe6e1;border-radius:18px;overflow:hidden;box-shadow:0 5px 18px #20162606;transition:transform .22s ease,box-shadow .22s ease}
+.card:hover{transform:translateY(-5px);box-shadow:0 18px 42px #20162617;border-color:#ded5ee}
+.photo{aspect-ratio:4/4.8;background:#ece7e1;position:relative}
+.photo img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
+.card:hover .photo img{transform:scale(1.045)}
+.photo .emoji{font-size:68px;background:linear-gradient(135deg,#f3edff,#f9e8e2)}
+.heart{background:#ffffffed;border:1px solid #ffffff;color:#30283c;width:38px;height:38px;box-shadow:0 4px 14px #17102020;font-size:21px}
+.heart.on{color:#f03c78}
+.card-body{padding:13px 14px 15px}
+.price{font-size:19px;font-weight:900;letter-spacing:-.6px}
+.item-title{font-size:13px;font-weight:650;color:#4e4857;margin:5px 0 10px}
+.meta{font-size:11px;color:#8c8590}
+.badge{background:#f0ebff;color:#6245e8}
+.notice{background:#f2edff;border:1px solid #e4dbff;border-radius:13px;color:#5f4a9e}
+.panel{border:1px solid #e9e3de;border-radius:20px;box-shadow:0 12px 38px #281d2307}
+.field input,.field select,.field textarea{border-color:#e5dfd9;border-radius:12px}
+.empty{background:#fff;border:1px dashed #d8d0c9;border-radius:20px}
+.notif-pop{border-color:#e9e3de;border-radius:20px}
+.notif-icon{background:#f0ebff;color:#684cf4}
+.modal{border-radius:24px}
+.detailphoto{border-radius:17px}
+.footer{background:#fbfaf7;border-top:1px solid #e9e4de}
+@media(max-width:1100px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:900px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.hero-inner{padding:32px}.hero h1{letter-spacing:-2.4px}}
+@media(max-width:650px){.toprow{min-height:68px}.logo{font-size:27px}.hero{padding-top:16px}.hero-inner{min-height:350px;padding:28px 22px;background-position:60% center}.hero-inner:before{background:linear-gradient(90deg,#f8f2e9f4 0%,#f8f2e9dd 65%,#f8f2e955 100%)}.hero h1{font-size:40px;letter-spacing:-2.5px}.hero-mark{display:none}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.card-body{padding:11px}.section-head h2{font-size:22px}}
+
+
+/* CLOVY — NIGHT MARKET / DESIGN STUDIO */
+:root{--ink:#20192a;--muted:#827987;--line:#e4d8ce;--bg:#f0e9df;--brand:#c9ff52;--brand2:#e8ffba;--white:#fffaf4;--shadow:0 18px 50px #241a2418}
+body{background:#eee5d8;color:#211a29;font-family:Arial,Helvetica,sans-serif;letter-spacing:-.18px}
+.top{background:#20192a;color:#fffaf4;border-bottom:1px solid #403449;box-shadow:0 8px 30px #19132125;backdrop-filter:blur(16px)}
+.toprow{height:82px;gap:22px}
+.logo{display:flex;align-items:center;gap:8px;color:#fffaf4;background:none;-webkit-text-fill-color:#fffaf4;font-size:25px;font-weight:900;letter-spacing:-1.5px;white-space:nowrap}
+.logo span{color:#c9ff52;-webkit-text-fill-color:#c9ff52}
+.logo .logo-mark{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:12px;background:#c9ff52;color:#211a29;-webkit-text-fill-color:#211a29;font-size:24px;letter-spacing:-3px;font-weight:950}
+.logo .logo-period{margin-left:-7px}
+.search input{background:#342b3d;color:#fffaf4;border:1px solid #51435c;border-radius:12px;padding:14px 17px 14px 43px}
+.search input::placeholder{color:#c2b5c8}
+.search input:focus{background:#3b3045;border-color:#c9ff52;box-shadow:0 0 0 3px #c9ff521c}
+.search:before{content:'⌕';color:#c9ff52;left:15px;top:7px;font-size:28px}
+.nav{gap:7px}
+button{background:#c9ff52;color:#20192a;box-shadow:none;border-radius:10px;font-weight:800}
+button:hover{filter:brightness(.97);box-shadow:0 7px 16px #1913211b;transform:translateY(-1px)}
+button.secondary,.cat{background:transparent;color:inherit;border:1px solid #d4c7ba;box-shadow:none}
+.top button.secondary{color:#f8f1e8;border-color:#55475f;background:#2b2333}
+.top button.secondary:hover{background:#403449;border-color:#c9ff52}
+.navicon{display:inline-flex;align-items:center;gap:7px}
+.navlabel{font-size:12px}
+#notifCount{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;border-radius:50%;background:#c9ff52;color:#20192a;font-size:10px;font-weight:900;padding:0 4px}
+.sell-button{display:flex;align-items:center;gap:7px;background:#c9ff52;color:#20192a;padding:11px 15px}
+.userpill{background:#342b3d;border:1px solid #51435c;color:#fffaf4;padding:5px 10px 5px 5px;border-radius:12px}
+.avatar{background:#c9ff52;color:#20192a;border-radius:10px}
+.hero{padding:24px 0 26px}
+.hero-inner{min-height:410px;border-radius:16px;padding:48px;background:#27202e url('https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1800&q=88') center 34%/cover no-repeat;box-shadow:0 20px 55px #241a2426;position:relative}
+.hero-inner:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#211a29f5 0%,#211a29e8 35%,#211a2999 61%,#211a2930 100%);z-index:0}
+.hero-inner:after{content:"CLOVY / 001";position:absolute;right:25px;bottom:22px;color:#ffffffa8;font-size:10px;font-weight:800;letter-spacing:3px}
+.hero-inner>div:first-child{position:relative;z-index:2}
+.eyebrow{display:flex;align-items:center;gap:9px;font-size:10px;font-weight:900;letter-spacing:2.6px;color:#c9ff52;margin-bottom:23px}
+.eyebrow-dot{width:7px;height:7px;border-radius:50%;background:#c9ff52;box-shadow:0 0 0 5px #c9ff5220}
+.hero h1{color:#fffaf4;font-size:clamp(42px,5.5vw,72px);letter-spacing:-4.5px;line-height:.91;max-width:650px;font-weight:900;margin-bottom:22px}
+.hero h1 em{font-family:Georgia,serif;font-weight:400;color:#c9ff52;letter-spacing:-3.5px}
+.hero p{color:#ded2e0;max-width:470px;font-size:15px;line-height:1.8}
+.hero button{display:inline-flex;align-items:center;gap:10px;padding:14px 18px}
+.hero .hero-link{background:transparent;color:#fffaf4;border:1px solid #ffffff5c;box-shadow:none;margin-left:5px}
+.hero .hero-link span{color:#c9ff52}
+.hero-mark{position:absolute;right:5%;top:12%;z-index:2;display:flex;flex-direction:column;align-items:flex-end;gap:18px;color:#c9ff52;font-size:initial;transform:rotate(5deg)}
+.hero-stamp{width:134px;height:134px;border:1px solid #c9ff52;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-size:17px;line-height:1.05;font-weight:900;letter-spacing:-.5px;background:#20192a80;backdrop-filter:blur(5px)}
+.hero-stamp span{font-size:8px;letter-spacing:1.5px;margin-top:7px;color:#fffaf4}
+.hero-note{font-size:10px;font-weight:900;letter-spacing:2px;line-height:1.7;color:#fffaf4;text-align:right}
+.cats{gap:8px;padding:0 0 28px}
+.cat{padding:11px 16px;border-radius:9px;font-size:12px;font-weight:800;background:#f8f1e8}
+.cat.active{background:#211a29;color:#c9ff52;border-color:#211a29}
+.section-head{margin:8px 0 18px}
+.section-head h2{font-size:28px;letter-spacing:-1.4px;font-weight:900}
+.section-head .muted{font-size:11px;text-transform:uppercase;letter-spacing:1.4px;font-weight:800}
+.grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
+.card{background:#fbf7f0;border:1px solid #dfd3c7;border-radius:13px;box-shadow:0 5px 12px #241a2408;transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-4px) rotate(-.25deg);box-shadow:0 16px 28px #241a2417;border-color:#c9ff52}
+.photo{aspect-ratio:4/4.9;background:#d9cec3}
+.photo .emoji{background:linear-gradient(135deg,#e3d9ce,#f5eee4);font-size:64px}
+.heart{width:37px;height:37px;border-radius:10px;background:#fbf7f0;color:#211a29;border:1px solid #ffffff;box-shadow:0 3px 9px #211a2920;font-size:20px}
+.heart.on{background:#c9ff52;color:#211a29}
+.card-body{padding:13px 13px 15px}
+.price{font-size:19px;color:#20192a;font-weight:900;letter-spacing:-.6px}
+.item-title{font-size:13px;color:#514653;font-weight:700;margin:5px 0 11px}
+.meta{font-size:10px;color:#887c88}
+.badge{background:#e6ffad;color:#33451c;border-radius:4px}
+.notice{background:#e5ffab;border:1px solid #d0f37d;color:#35411f;border-radius:8px;font-size:11px;font-weight:800;letter-spacing:.2px}
+.panel{background:#fbf7f0;border:1px solid #dfd3c7;border-radius:14px;box-shadow:0 8px 26px #241a2408}
+.field input,.field select,.field textarea{background:#fffdf9;border:1px solid #ddd0c4;border-radius:9px}
+.field label{font-size:11px;letter-spacing:.7px;text-transform:uppercase}
+.empty{background:#fbf7f0;border:1px dashed #c7b7a9;border-radius:14px}
+.listrow{border-color:#e6dbd0;border-radius:10px}
+.thumb{border-radius:8px;background:#e6ddd3}
+.notif-pop{background:#fbf7f0;border:1px solid #d9ccbf;border-radius:14px;color:#211a29}
+.notif-item{border-bottom-color:#e7dbcf}
+.notif-item.unread{background:#eff8d9}
+.notif-icon{background:#c9ff52;color:#211a29;border-radius:9px}
+.modal{background:#fbf7f0;border:1px solid #d9ccbf;border-radius:16px}
+.detailphoto{border-radius:10px}
+.chatbox{border-color:#dfd3c7;border-radius:12px}
+.chathead{background:#eee5d9}
+.bubble{border-radius:12px;background:#eee5d9}
+.bubble.mine{background:#e5ffab}
+.sendrow input{border-color:#ddd0c4;border-radius:9px}
+.footer{background:#211a29;color:#b8acbc;border-top:1px solid #403449}
+.footer .wrap{color:#b8acbc}
+@media(max-width:1100px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:900px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.hero-inner{padding:34px}.hero-mark{right:4%;top:8%}.hero-stamp{width:105px;height:105px;font-size:14px}}
+@media(max-width:650px){.toprow{height:auto;min-height:70px;padding:10px 0}.logo{font-size:21px;gap:5px}.logo .logo-mark{width:30px;height:30px;font-size:20px}.nav{gap:4px}.navlabel{display:none}.navicon{padding:9px}.sell-button{padding:10px}.userpill{padding-right:6px}.username{display:none}.hero{padding-top:14px}.hero-inner{min-height:390px;padding:30px 21px;background-position:61% center}.hero-inner:before{background:linear-gradient(90deg,#211a29f6 0%,#211a29e9 55%,#211a29a0 100%)}.hero h1{font-size:44px;letter-spacing:-2.9px}.hero h1 em{letter-spacing:-2.5px}.hero p{font-size:14px}.hero-mark{display:none}.hero .hero-link{margin:9px 0 0}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.section-head h2{font-size:23px}.card-body{padding:10px}.price{font-size:17px}}
+
+
+/* CLOVY 2.0 — premium editorial polish */
+:root{--ink:#211a29;--brand:#211a29;--brand2:#e8ffad;--line:#dfd3c7;--bg:#f0e8dc;--muted:#817582;--good:#3e7026;--danger:#c43f56}
+html{scroll-behavior:smooth}body{background-color:#f0e8dc;background-image:radial-gradient(#b5a59736 .7px,transparent .7px);background-size:8px 8px}
+.top{background:#211a29f5;border-bottom:1px solid #55475f;backdrop-filter:blur(16px);box-shadow:0 8px 28px #211a2912}.toprow{min-height:76px}.logo{color:#fffaf4;display:flex;align-items:center;gap:9px;letter-spacing:-1.7px}.logo .logo-mark{display:inline-flex;align-items:center;justify-content:center;width:37px;height:37px;border-radius:12px;background:#c9ff52;color:#211a29;font-size:25px;letter-spacing:-2px;box-shadow:0 0 0 5px #c9ff5214}.logo-period{color:#c9ff52!important;margin-left:-8px}.search input{background:#342b3d;border:1px solid #51435c;color:#fffaf4;border-radius:13px;padding:13px 15px 13px 43px;transition:border-color .2s,box-shadow .2s}.search input::placeholder{color:#b8acbc}.search input:focus{border-color:#c9ff52;box-shadow:0 0 0 4px #c9ff521a}.search:before{color:#c9ff52;top:6px}.nav button{transition:transform .18s,background .18s}.sell-button{box-shadow:0 5px 0 #91bd30,0 10px 24px #c9ff5220;font-weight:900}.sell-button:hover{transform:translateY(-2px);box-shadow:0 7px 0 #91bd30,0 15px 30px #c9ff5233}
+.hero{animation:clovyIn .65s cubic-bezier(.2,.7,.2,1) both}.hero-inner{isolation:isolate;box-shadow:0 28px 65px #211a2926,0 0 0 1px #ffffff30 inset}.hero-inner:before{background:linear-gradient(90deg,#211a29f7 0%,#211a29e8 36%,#211a2999 62%,#211a2930 100%);backdrop-filter:saturate(.85)}.hero-inner:after{content:'CLOVY  /  SECOND LIFE, BETTER STYLE';font-size:9px;letter-spacing:2.4px}.hero h1{max-width:710px;text-wrap:balance}.hero h1 em{text-shadow:0 0 32px #c9ff5230}.hero .eyebrow{font-size:10px}.hero button{border-radius:10px;box-shadow:0 6px 0 #91bd30;transition:transform .2s,box-shadow .2s}.hero button:hover{transform:translateY(-2px);box-shadow:0 8px 0 #91bd30,0 14px 26px #c9ff5225}.hero .hero-link{box-shadow:none}.hero .hero-link:hover{border-color:#c9ff52;box-shadow:0 0 0 3px #c9ff5216}
+.cats{position:relative;padding-top:17px;gap:9px}.cats:before{content:'CURATED SECOND-HAND';position:absolute;top:0;left:2px;font-size:8px;font-weight:900;letter-spacing:2.1px;color:#887b89}.cat{transition:all .2s ease;box-shadow:0 2px 0 #211a2906}.cat:hover{border-color:#211a29;transform:translateY(-2px)}.cat.active{box-shadow:0 4px 0 #c9ff52}
+.section-head{align-items:end;border-bottom:1px solid #d9ccbf;padding-bottom:14px}.section-head h2{font-size:30px;letter-spacing:-1.5px}.section-head .muted{padding:6px 9px;border:1px solid #d9ccbf;border-radius:5px;background:#f8f1e8;color:#706474}
+.grid{gap:17px}.card{position:relative;border-radius:11px;box-shadow:0 3px 0 #211a2908,0 9px 25px #211a2908;overflow:hidden}.card:after{content:'';position:absolute;inset:0;border:1px solid #ffffff00;border-radius:inherit;pointer-events:none;transition:border-color .2s}.card:hover:after{border-color:#c9ff52}.card:hover{transform:translateY(-6px) rotate(0deg);box-shadow:0 7px 0 #c9ff52,0 22px 35px #211a2920}.photo{background:linear-gradient(135deg,#e8ded1,#d3c4b5)}.photo img{transition:transform .45s cubic-bezier(.2,.7,.2,1);will-change:transform}.card:hover .photo img{transform:scale(1.055)}.heart{backdrop-filter:blur(9px);transition:transform .18s,background .18s}.heart:hover{transform:scale(1.08)}.card-body{background:linear-gradient(180deg,#fbf7f0,#f7f0e7)}.price{font-variant-numeric:tabular-nums}.item-title{line-height:1.4}.meta{letter-spacing:.2px}.badge{font-weight:850;letter-spacing:.3px}
+.panel,.modal{box-shadow:0 18px 50px #211a290c}.panel{border-radius:13px}.field input:focus,.field textarea:focus,.field select:focus{border-color:#8caf3e;box-shadow:0 0 0 4px #c9ff5230}.page{animation:clovyIn .35s ease both}.modalback{backdrop-filter:blur(7px);background:#211a29a8}.modal{box-shadow:0 30px 100px #100b16a8}.footer{margin-top:20px;position:relative;overflow:hidden}.footer:before{content:'CLOVY';position:absolute;right:5%;bottom:-42px;font-size:115px;font-weight:950;letter-spacing:-9px;color:#ffffff08;pointer-events:none}.footer .wrap{position:relative;z-index:1}.toast{box-shadow:0 15px 40px #211a2940}
+@keyframes clovyIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+@media(max-width:650px){.toprow{gap:8px}.logo .logo-mark{width:31px;height:31px}.search input{font-size:13px}.hero-inner{box-shadow:0 18px 35px #211a2926}.cats:before{font-size:7px}.section-head h2{font-size:24px}.grid{gap:9px}.card:hover{transform:translateY(-2px)}.footer:before{font-size:70px;bottom:-20px}}
+
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap toprow">
+  <div class="logo" onclick="go('home')"><span class="logo-mark">c.</span> CLOVY<span class="logo-period">/</span></div>
+  <div class="search"><input id="search" placeholder="Szukaj perełek, marek, rozmiarów..." oninput="renderHome()"></div>
+  <div class="nav">
+    <button class="navicon secondary small optional" aria-label="Polubione" title="Polubione" onclick="go('favorites')"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/></svg><span class="navlabel">Zapisane</span></button>
+    <button class="navicon secondary small optional" aria-label="Wiadomości" title="Wiadomości" onclick="go('messages')"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8A8.5 8.5 0 0 1 8.7 4a8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8Z"/></svg><span class="navlabel">Wiadomości</span></button>
+    <button class="navicon secondary small" id="notifButton" aria-label="Powiadomienia" title="Powiadomienia" onclick="toggleNotifications()"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg><span id="notifCount">0</span></button>
+    <button class="sell-button small" onclick="go('add')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg><span>Wystaw</span></button>
+    <div class="userpill" id="userPill" onclick="go('profile')" style="cursor:pointer"><span class="avatar" id="topAvatar">?</span><span class="username" id="topName">Gość</span></div>
+  </div>
+</div></div>
+<main id="app"></main>
+<div class="footer"><div class="wrap labelrow"><span>© CLOVY — lokalne demo marketplace'u</span><span>Wersja testowa • bez prawdziwych płatności</span></div></div>
+<div id="modalRoot"></div><div id="notificationRoot"></div><div id="toast" class="toast hidden"></div>
+<script>
+const KEY='clovy_marketplace_demo_v1';
+const CHANNEL='clovy_demo_sync_v1';
+const EMOJIS={Ubrania:'👕',Buty:'👟',Dodatki:'👜',Inne:'✨'};
+let db, current=null, page='home', activeCat='Wszystko', activeProfileTab='listings', activeChat=null, toastTimer;
+const channel=('BroadcastChannel' in window)?new BroadcastChannel(CHANNEL):null;
+
+function ico(name,size=18){
+ const p={
+  search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/>',
+  heart:'<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/>',
+  chat:'<path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8A8.5 8.5 0 0 1 8.7 4a8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8Z"/>',
+  bell:'<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/>',
+  plus:'<path d="M12 5v14M5 12h14"/>',
+  user:'<circle cx="12" cy="8" r="4"/><path d="M5 21a7 7 0 0 1 14 0"/>',
+  bag:'<path d="M5 8h14l1 13H4L5 8Z"/><path d="M9 8a3 3 0 0 1 6 0"/>',
+  arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>',
+  filter:'<path d="M4 7h16M7 12h10m-7 5h4"/><circle cx="8" cy="7" r="1.5"/><circle cx="15" cy="12" r="1.5"/>',
+  close:'<path d="m18 6-12 12M6 6l12 12"/>',
+  spark:'<path d="m12 3 1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2L12 3Z"/><path d="m19 14 1 2.5 2.5 1-2.5 1L19 21l-1-2.5-2.5-1 2.5-1L19 14Z"/>'
+ };
+ return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p[name]||p.spark}</svg>`;
+}
+
+function seed(){return {users:[],items:[],likes:[],messages:[],orders:[],notifications:[],demoSeeded:false,createdAt:Date.now()}}
+function load(){try{db=JSON.parse(localStorage.getItem(KEY))||seed()}catch(e){db=seed()} if(!db.users)db.users=[];if(!db.items)db.items=[];if(!db.likes)db.likes=[];if(!db.messages)db.messages=[];if(!db.orders)db.orders=[];if(!db.notifications)db.notifications=[];if(typeof db.demoSeeded!=='boolean')db.demoSeeded=false; }
+function save(){localStorage.setItem(KEY,JSON.stringify(db));if(channel)channel.postMessage({type:'update',at:Date.now()});}
+function refresh(){load();updateHeader();if(page==='home')renderHome();else if(page==='profile')renderProfile();else if(page==='favorites')renderFavorites();else if(page==='messages')renderMessages();else if(page==='myitems')renderMyItems();else if(page==='add')renderAdd();else if(page==='auth')renderAuth();else if(page==='orders')renderOrders();}
+window.addEventListener('storage',e=>{if(e.key===KEY)refresh()});
+if(channel)channel.onmessage=()=>refresh();
+function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function money(n){return new Intl.NumberFormat('pl-PL',{style:'currency',currency:'PLN',maximumFractionDigits:2}).format(Number(n)||0)}
+function uid(){return Math.random().toString(36).slice(2,9)+Date.now().toString(36).slice(-4)}
+function user(){return db.users.find(u=>u.id===current)||null}
+function initials(name){return (name||'?').trim().split(/\s+/).slice(0,2).map(x=>x[0]||'').join('').toUpperCase()}
+function updateHeader(){let u=user();document.getElementById('topName').textContent=u?u.name:'Gość';document.getElementById('topAvatar').textContent=u?initials(u.name):'?';let unread=u?db.notifications.filter(n=>n.userId===current&&!n.read).length:0;let nc=document.getElementById('notifCount');if(nc)nc.textContent=unread>9?'9+':String(unread);let nb=document.getElementById('notifButton');if(nb)nb.title=u?'Powiadomienia':'Zaloguj się, aby zobaczyć powiadomienia';}
+function say(s){let t=document.getElementById('toast');t.textContent=s;t.classList.remove('hidden');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.add('hidden'),2600)}
+function go(p){page=p;document.getElementById('modalRoot').innerHTML='';if(p==='home')renderHome();else if(p==='auth')renderAuth();else if(p==='add')renderAdd();else if(p==='profile')renderProfile();else if(p==='favorites')renderFavorites();else if(p==='messages')renderMessages();else if(p==='myitems')renderMyItems();else if(p==='orders')renderOrders();window.scrollTo(0,0)}
+function requireUser(){if(!user()){say('Najpierw zaloguj się lub utwórz konto.');go('auth');return false}return true}
+function imageMarkup(item,cls=''){if(item.demo&&!item.image)return `<div class="${cls} emoji">${item.emoji||EMOJIS[item.category]||'✨'}</div>`;if(item.image)return `<img loading="lazy" class="${cls}" src="${esc(item.image)}" alt="${esc(item.title)}" onerror="this.outerHTML='<div class=\\'${cls} emoji\\'>${item.emoji||EMOJIS[item.category]||'✳'}</div>'">`;return `<div class="${cls} emoji">${EMOJIS[item.category]||'✨'}</div>`}
+
+function notify(userId,type,title,body,itemId=''){if(!userId)return;db.notifications.unshift({id:uid(),userId,type,title,body,itemId,createdAt:Date.now(),read:false});db.notifications=db.notifications.slice(0,500)}
+function seedDemoListings(){
+  load();
+  const sellerNames=['mila.vintage','ola_style','kuba.closet','ania_wardrobe','streetfinds','lena.shop','szafa_oli','moda_second','urbancloset','kasia_vibes','retro_mateusz','closet.pl','fashionbyiza','dailyfits','vintagefox','sneakerhead_pl','slowfashion','monika_look','wearagain','szafa_klasy'];
+  const demoUsers=[];
+  sellerNames.forEach((name,idx)=>{
+    let u=db.users.find(x=>x.name.toLowerCase()===name.toLowerCase());
+    if(!u){u={id:'demo_user_'+idx,name,pass:'demo-only',joinedAt:Date.now()-((idx+2)*86400000),bio:'Lubię modę z drugiego obiegu i wyszukuję wyjątkowe perełki ✨',avatar:'',demo:true};db.users.push(u)}
+    demoUsers.push(u);
+  });
+  const first=['Vintage','Klasyczna','Oversize','Minimalistyczna','Sportowa','Retro','Elegancka','Bawełniana','Lniana','Streetwear','Y2K','Premium','Basic','Skater','Old-school'];
+  const products=[
+    {cat:'Ubrania',names:['bluza','koszulka','kurtka','sukienka','sweter','spodnie','marynarka','spódnica','top','jeansy','kardigan','płaszcz','body','kamizelka']},
+    {cat:'Buty',names:['sneakersy','botki','trampki','buty sportowe','mokasyny','baleriny','kozaki','sandały']},
+    {cat:'Dodatki',names:['torebka','plecak','czapka','pasek','okulary','szalik','portfel','biżuteria','nerka','czapka z daszkiem']}
+  ];
+  const brands=['Nike','Adidas','Zara','H&M','Reserved','New Balance','Puma','Levi’s','Mango','Converse','Reebok','Pull&Bear','Bershka','Vans','No brand','COS','Uniqlo','Massimo Dutti','Carhartt','The North Face'];
+  const colors=['czarna','biała','beżowa','szara','granatowa','zielona','brązowa','różowa','bordowa','niebieska','kremowa','oliwkowa'];
+  const sizes=['XS','S','M','L','XL','38','39','40','41','42','Uniwersalny','36','37','43','44'];
+  const conditions=['Bardzo dobry','Dobry','Nowy bez metki','Nowy z metką'];
+  const photoSets={
+    Ubrania:[
+      'photo-1521572163474-6864f9cf17ab','photo-1551488831-00ddcb6c6bd3','photo-1523381210434-271e8be1f52b','photo-1490481651871-ab68de25d43d',
+      'photo-1551232864-3be4559e9e6f','photo-1434389677669-e08b4cac3105','photo-1483985988355-763728e1935b','photo-1515886657613-9f3515b0c78f',
+      'photo-1529139574466-a303027c1d8b','photo-1485230895905-ec40ba36b9bc','photo-1543076447-215ad9ba6923','photo-1496747611176-843222e1e57c'
+    ],
+    Buty:[
+      'photo-1542291026-7eec264c27ff','photo-1543163521-1bf539c55dd2','photo-1460353581641-37baddab0fa2','photo-1495555961986-6d4c1ecb7be3',
+      'photo-1549298916-b41d501d3772','photo-1552346154-21d32810aba3','photo-1600185365483-26d7a4cc7519','photo-1542291026-7eec264c27ff'
+    ],
+    Dodatki:[
+      'photo-1548036328-c9fa89d128fa','photo-1584917865442-de89df76afd3','photo-1553062407-98eeb64c6a62','photo-1526170375885-4d8ecf77b99f',
+      'photo-1509319117193-57bab727e09d','photo-1576053139778-7e32f2ae3cfd','photo-1612902456551-333ac5afa26d','photo-1590874103328-eac38a683ce7'
+    ]
+  };
+  const photoFor=(cat,i)=>`https://images.unsplash.com/${photoSets[cat][i%photoSets[cat].length]}?auto=format&fit=crop&w=700&q=82`;
+  const existing=new Set(db.items.filter(i=>i.demo).map(i=>i.id));
+  for(let i=0;i<250;i++){
+    const id='demo_item_'+i;
+    if(existing.has(id)){
+      const old=db.items.find(x=>x.id===id);
+      if(old){const cat=old.category==='Buty'?'Buty':old.category==='Dodatki'?'Dodatki':'Ubrania';old.image=photoFor(cat,i);old.demo=true;old.emoji=cat==='Buty'?'👟':cat==='Dodatki'?'👜':'👕';}
+      continue;
+    }
+    const group=products[i%products.length], noun=group.names[(i*7+Math.floor(i/3))%group.names.length];
+    const brand=brands[(i*11+3)%brands.length], prefix=first[(i*5+Math.floor(i/2))%first.length];
+    const category=group.cat, seller=demoUsers[i%demoUsers.length];
+    const rawPrice=category==='Buty'?69+((i*37)%280):category==='Dodatki'?19+((i*17)%170):15+((i*23)%220);
+    const price=Math.round((rawPrice+(i%4)*0.99)*100)/100;
+    const emoji=category==='Buty'?'👟':category==='Dodatki'?'👜':'👕';
+    db.items.push({id,sellerId:seller.id,title:`${prefix} ${noun} ${i%4===0?brand:''}`.trim(),price,category,brand,size:sizes[(i*7)%sizes.length],condition:conditions[(i*3)%conditions.length],color:colors[(i*5)%colors.length],description:`Fikcyjne ogłoszenie demonstracyjne CLOVY. Zdjęcie jest zdjęciem poglądowym z internetu, a oferta nie jest prawdziwą ofertą sprzedaży. ${i%2?'Stan przykładowy — dane służą do testowania interfejsu.':'To przykładowy wpis katalogowy. Nie kupuj tego produktu.'}`,image:photoFor(category,i),status:'active',createdAt:Date.now()-(i*63000),demo:true,emoji});
+  }
+  // Give older demo entries a photo as well, and never replace user-created listings.
+  db.items.filter(i=>i.demo).forEach((item,idx)=>{
+    if(!item.image || item.image.startsWith('data:')){
+      const cat=item.category==='Buty'?'Buty':item.category==='Dodatki'?'Dodatki':'Ubrania';
+      item.image=photoFor(cat,idx);
+    }
+  });
+  db.demoSeeded=true;save();
+}
+function toggleNotifications(){
+  if(!user()){say('Zaloguj się, aby zobaczyć powiadomienia.');go('auth');return}
+  const root=document.getElementById('notificationRoot');
+  if(root.innerHTML){root.innerHTML='';return}
+  const list=db.notifications.filter(n=>n.userId===current).slice(0,40);
+  root.innerHTML=`<div class="notif-pop"><div class="labelrow"><strong>Powiadomienia</strong><button class="ghost small" onclick="markAllRead()">Oznacz jako przeczytane</button></div><div style="margin-top:8px">${list.length?list.map(n=>`<div class="notif-item ${n.read?'':'unread'}"><div class="notif-icon">${n.type==='like'?'♥':n.type==='message'?'✉':n.type==='order'?'📦':'✦'}</div><div class="grow"><strong>${esc(n.title)}</strong><p>${esc(n.body)}</p><p>${new Date(n.createdAt).toLocaleString('pl-PL')}</p>${n.itemId?`<button class="secondary small" onclick="document.getElementById('notificationRoot').innerHTML='';detail('${n.itemId}')">Zobacz</button>`:''}</div></div>`).join(''):'<div class="empty" style="padding:24px 8px">Brak powiadomień. Gdy ktoś polubi produkt lub napisze wiadomość, pojawią się tutaj.</div>'}</div></div>`;
+}
+function markAllRead(){if(!user())return;db.notifications.forEach(n=>{if(n.userId===current)n.read=true});save();document.getElementById('notificationRoot').innerHTML='';toggleNotifications();updateHeader()}
+
+function filteredItems(){let q=(document.getElementById('search')?.value||'').trim().toLowerCase();return db.items.filter(i=>i.status==='active'&&(activeCat==='Wszystko'||i.category===activeCat)&&(!q||(i.title+' '+i.description+' '+i.brand+' '+i.size+' '+i.category).toLowerCase().includes(q))).sort((a,b)=>b.createdAt-a.createdAt)}
+function isLiked(id){return !!(current&&db.likes.some(l=>l.userId===current&&l.itemId===id))}
+function card(i){let liked=isLiked(i.id),seller=db.users.find(u=>u.id===i.sellerId);return `<article class="card"><div class="photo" onclick="detail('${i.id}')">${imageMarkup(i)}<button class="heart ${liked?'on':''}" aria-label="Polub" onclick="event.stopPropagation();toggleLike('${i.id}')">${liked?'♥':'♡'}</button></div><div class="card-body"><div class="price">${money(i.price)}</div><div class="item-title" title="${esc(i.title)}">${esc(i.title)}</div><div class="meta"><span>${esc(i.size||i.category)}</span><span>${esc(seller?.name||'Użytkownik')}</span></div></div></article>`}
+function renderHome(){page='home';updateHeader();let items=filteredItems();let cats=['Wszystko','Ubrania','Buty','Dodatki','Inne'];document.getElementById('app').innerHTML=`<div class="wrap"><section class="hero ${current?'hidden':''}"><div class="hero-inner"><div><div class="eyebrow"><span class="eyebrow-dot"></span> SECOND HAND, FIRST CHOICE</div><h1>Rzeczy z historią.<br><em>Styl po Twojemu.</em></h1><p>Ubrania, które zasługują na drugi rozdział. Znajdź coś wyjątkowego albo puść dalej rzeczy, które już zrobiły swoje.</p><button onclick="go('add')">Wystaw rzecz ${ico('arrow',16)}</button> <button class="hero-link" onclick="go('auth')">Poznaj CLOVY <span>↗</span></button></div><div class="hero-mark"><div class="hero-stamp">PRE-LOVED<br><span>NOT REPLACED</span></div><div class="hero-note">LESS NEW.<br>MORE YOU.</div></div></div></section><div class="cats">${cats.map(c=>`<button class="cat ${activeCat===c?'active':''}" onclick="activeCat='${c}';renderHome()">${c==='Wszystko'?'✳ Wszystko':(c==='Ubrania'?'♧':c==='Buty'?'◒':'◇')+' '+c}</button>`).join('')}</div><div class="section-head"><h2>${activeCat==='Wszystko'?'Wybrane dla Ciebie':activeCat}</h2><span class="muted">${items.length} ${items.length===1?'ogłoszenie':'ogłoszeń'}</span></div><div class="notice" style="margin-bottom:16px">KATALOG DEMO / 250 PRZYKŁADOWYCH OFERT. Zdjęcia są ilustracyjne, a ogłoszenia fikcyjne.</div><section class="grid">${items.length?items.map(card).join(''):`<div class="empty"><div style="font-size:34px;margin-bottom:8px">✦</div><strong>Na razie pusto</strong><p>Dodaj pierwsze ogłoszenie albo zmień wyszukiwanie.</p><button onclick="go('add')">Dodaj ogłoszenie</button></div>`}</section></div>`}
+function renderAuth(){page='auth';document.getElementById('app').innerHTML=`<div class="wrap page"><div class="panel loginbox"><h2>Dołącz do CLOVY</h2><p class="muted">Utwórz konto testowe lub zaloguj się na konto utworzone w tej przeglądarce.</p><div class="notice">Demo lokalne: konta nie mają prawdziwego zabezpieczenia hasłem ani serwera. Nie używaj prawdziwego hasła.</div><form id="authForm" onsubmit="authSubmit(event)"><div class="formgrid"><div class="field full"><label>Nazwa użytkownika</label><input id="authName" minlength="2" maxlength="30" required placeholder="np. ola_2008"></div><div class="field full"><label>Hasło testowe</label><input id="authPass" type="password" minlength="3" required placeholder="Dowolne hasło do demonstracji"></div></div><div class="actions"><button type="submit">Zaloguj / utwórz konto</button><button class="secondary" type="button" onclick="go('home')">Wróć</button></div></form><p class="authhint">Wpisanie nowej nazwy tworzy konto. Jeśli nazwa już istnieje, hasło testowe musi się zgadzać. Aby testować dwie osoby, zaloguj różne konta w dwóch kartach.</p></div></div>`}
+function authSubmit(e){e.preventDefault();load();let name=document.getElementById('authName').value.trim(),pass=document.getElementById('authPass').value;if(name.length<2)return;let u=db.users.find(x=>x.name.toLowerCase()===name.toLowerCase());if(u){if(u.pass!==pass){say('Ta nazwa jest już zajęta — podaj właściwe hasło testowe.');return}}else{u={id:uid(),name,pass,joinedAt:Date.now(),bio:'',avatar:''};db.users.push(u)}current=u.id;save();updateHeader();say('Zalogowano jako '+u.name);go('home')}
+function renderAdd(editId=null){page='add';if(!requireUser())return;let old=editId?db.items.find(i=>i.id===editId&&i.sellerId===current):null;if(editId&&!old){say('Nie możesz edytować tego ogłoszenia.');go('home');return}document.getElementById('app').innerHTML=`<div class="wrap page"><div class="panel"><h2>${old?'Edytuj ogłoszenie':'Wystaw przedmiot'}</h2><p class="muted">Dodaj szczegóły i zdjęcie produktu. W wersji demo zdjęcie zostaje zapisane lokalnie w tej przeglądarce.</p><form id="itemForm" onsubmit="submitItem(event,'${old?.id||''}')"><div class="formgrid"><div class="field full"><label>Tytuł ogłoszenia *</label><input id="itTitle" required maxlength="90" value="${esc(old?.title||'')}" placeholder="np. Bluza Nike oversize"></div><div class="field"><label>Cena (PLN) *</label><input id="itPrice" type="number" min="0.01" max="999999" step="0.01" required value="${old?.price??''}" placeholder="49.99"></div><div class="field"><label>Kategoria *</label><select id="itCat">${['Ubrania','Buty','Dodatki','Inne'].map(c=>`<option ${old?.category===c?'selected':''}>${c}</option>`).join('')}</select></div><div class="field"><label>Marka</label><input id="itBrand" maxlength="50" value="${esc(old?.brand||'')}" placeholder="np. Nike"></div><div class="field"><label>Rozmiar</label><input id="itSize" maxlength="20" value="${esc(old?.size||'')}" placeholder="np. M, 38, uniwersalny"></div><div class="field"><label>Stan</label><select id="itCondition">${['Nowy z metką','Nowy bez metki','Bardzo dobry','Dobry','Zadowalający'].map(c=>`<option ${old?.condition===c?'selected':''}>${c}</option>`).join('')}</select></div><div class="field"><label>Kolor</label><input id="itColor" maxlength="30" value="${esc(old?.color||'')}" placeholder="np. czarny"></div><div class="field full"><label>Opis *</label><textarea id="itDesc" required maxlength="1200" placeholder="Opisz produkt, jego stan i ewentualne wady...">${esc(old?.description||'')}</textarea></div><div class="field full"><label>Zdjęcie produktu (opcjonalne)</label><input id="itImage" type="file" accept="image/*" onchange="previewImage(event)"><div id="imagePreview">${old?.image?`<img src="${esc(old.image)}" style="max-width:180px;max-height:180px;border-radius:12px;object-fit:cover">`:''}</div><small class="muted">Dla lepszej wydajności zdjęcie zostanie zmniejszone. Limit około 2 MB po kompresji.</small></div></div><div class="actions"><button type="submit">${old?'Zapisz zmiany':'Opublikuj ogłoszenie'}</button><button type="button" class="secondary" onclick="go('${old?'myitems':'home'}')">Anuluj</button></div></form></div></div>`;window.pendingImage=old?.image||''}
+function previewImage(e){let f=e.target.files?.[0];if(!f)return;if(!f.type.startsWith('image/')){say('Wybierz plik obrazu.');return}let r=new FileReader();r.onload=()=>{let im=new Image();im.onload=()=>{let scale=Math.min(1,1000/Math.max(im.width,im.height));let c=document.createElement('canvas');c.width=Math.round(im.width*scale);c.height=Math.round(im.height*scale);c.getContext('2d').drawImage(im,0,0,c.width,c.height);window.pendingImage=c.toDataURL('image/jpeg',.78);document.getElementById('imagePreview').innerHTML=`<img src="${window.pendingImage}" style="max-width:180px;max-height:180px;border-radius:12px;object-fit:cover">`};im.src=r.result};r.readAsDataURL(f)}
+function submitItem(e,id){e.preventDefault();if(!requireUser())return;load();let item={id:id||uid(),sellerId:current,title:document.getElementById('itTitle').value.trim(),price:Number(document.getElementById('itPrice').value),category:document.getElementById('itCat').value,brand:document.getElementById('itBrand').value.trim(),size:document.getElementById('itSize').value.trim(),condition:document.getElementById('itCondition').value,color:document.getElementById('itColor').value.trim(),description:document.getElementById('itDesc').value.trim(),image:window.pendingImage||'',status:'active',createdAt:Date.now()};if(!item.title||!item.description||!Number.isFinite(item.price)||item.price<=0){say('Sprawdź tytuł, opis i cenę.');return}let idx=db.items.findIndex(i=>i.id===id&&i.sellerId===current);if(idx>=0){item.createdAt=db.items[idx].createdAt;db.items[idx]=item}else db.items.push(item);save();say(idx>=0?'Zapisano zmiany':'Ogłoszenie opublikowane');go('myitems')}
+function toggleLike(id){if(!requireUser())return;load();let idx=db.likes.findIndex(l=>l.userId===current&&l.itemId===id);if(idx>=0){db.likes.splice(idx,1);say('Usunięto z polubionych')}else{db.likes.push({userId:current,itemId:id,createdAt:Date.now()});let it=db.items.find(x=>x.id===id);if(it&&it.sellerId!==current)notify(it.sellerId,'like','Ktoś polubił Twój produkt',user()?.name+' polubił(a): '+it.title,id);say('Dodano do polubionych ♥')}save();refresh()}
+function renderFavorites(){page='favorites';if(!requireUser())return;let items=db.items.filter(i=>db.likes.some(l=>l.userId===current&&l.itemId===i.id)&&i.status==='active');document.getElementById('app').innerHTML=`<div class="wrap page"><div class="section-head"><h2>Polubione</h2><span class="muted">${items.length} produktów</span></div><section class="grid">${items.length?items.map(card).join(''):`<div class="empty">Nie masz jeszcze polubionych produktów.<p>Przeglądaj oferty i kliknij serduszko, aby zapisać je tutaj.</p><button onclick="go('home')">Przeglądaj oferty</button></div>`}</section></div>`}
+function renderMyItems(){page='myitems';if(!requireUser())return;let items=db.items.filter(i=>i.sellerId===current).sort((a,b)=>b.createdAt-a.createdAt);document.getElementById('app').innerHTML=`<div class="wrap page"><div class="section-head"><h2>Moje ogłoszenia</h2><button onclick="go('add')">＋ Dodaj przedmiot</button></div><div class="panel"><div class="tablelist">${items.length?items.map(i=>`<div class="listrow">${imageMarkup(i,'thumb')}<div class="grow"><strong>${esc(i.title)}</strong><p>${money(i.price)} · ${esc(i.category)} · <span class="badge">${i.status==='active'?'Aktywne':'Sprzedane'}</span></p></div><button class="secondary small" onclick="renderAdd('${i.id}')">Edytuj</button>${i.status==='active'?`<button class="small" onclick="markSold('${i.id}')">Sprzedane</button>`:`<button class="secondary small" onclick="relist('${i.id}')">Wznów</button>`}<button class="danger small" onclick="deleteItem('${i.id}')">Usuń</button></div>`).join(''):`<div class="empty">Nie masz jeszcze ogłoszeń.<p>Dodaj pierwszą rzecz, aby zobaczyć ją w marketplace.</p><button onclick="go('add')">Wystaw przedmiot</button></div>`}</div></div></div>`}
+function markSold(id){load();let i=db.items.find(x=>x.id===id&&x.sellerId===current);if(!i)return;i.status='sold';save();say('Oznaczono jako sprzedane');renderMyItems()}
+function relist(id){load();let i=db.items.find(x=>x.id===id&&x.sellerId===current);if(!i)return;i.status='active';save();renderMyItems()}
+function deleteItem(id){if(!confirm('Na pewno usunąć ogłoszenie?'))return;load();let i=db.items.find(x=>x.id===id&&x.sellerId===current);if(!i)return;db.items=db.items.filter(x=>x.id!==id);db.likes=db.likes.filter(x=>x.itemId!==id);save();say('Usunięto ogłoszenie');renderMyItems()}
+function detail(id){let i=db.items.find(x=>x.id===id);if(!i)return;let seller=db.users.find(u=>u.id===i.sellerId),liked=isLiked(id);document.getElementById('modalRoot').innerHTML=`<div class="modalback" onclick="if(event.target===this)closeModal()"><div class="modal"><button class="close" onclick="closeModal()">×</button><div class="detailgrid"><div>${imageMarkup(i,'detailphoto')}</div><div style="padding:8px 0"><div class="muted">${esc(i.category)} · ${esc(i.condition||'')}</div><h2 style="margin:8px 0">${esc(i.title)}</h2><div class="price" style="font-size:27px">${money(i.price)}</div><p>${esc(i.description).replace(/\n/g,'<br>')}</p><div class="muted" style="font-size:13px;line-height:1.9">${i.brand?'Marka: '+esc(i.brand)+'<br>':''}${i.size?'Rozmiar: '+esc(i.size)+'<br>':''}${i.color?'Kolor: '+esc(i.color)+'<br>':''}Dodano: ${new Date(i.createdAt).toLocaleDateString('pl-PL')}</div><hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><div class="profilehead"><span class="avatar big">${initials(seller?.name)}</span><div><strong>${esc(seller?.name||'Użytkownik')}</strong><div class="muted" style="font-size:12px">Sprzedający na CLOVY</div></div></div><div class="actions"><button onclick="toggleLike('${i.id}');detail('${i.id}')">${liked?'♥ Polubiono':'♡ Polub'}</button><button class="secondary" onclick="startChat('${i.sellerId}','${i.id}')">Napisz do sprzedającego</button>${i.sellerId!==current?`<button onclick="buyDemo('${i.id}')">Kup teraz (demo)</button>`:''}</div><p class="authhint">Przycisk zakupu tylko symuluje zamówienie — nie pobiera pieniędzy i nie organizuje wysyłki.</p></div></div></div></div>`}
+function closeModal(){document.getElementById('modalRoot').innerHTML=''}
+function startChat(sellerId,itemId){if(!requireUser())return;if(sellerId===current){say('To Twoje ogłoszenie.');return}activeChat=[sellerId,itemId].join('|');closeModal();go('messages')}
+function buyDemo(id){if(!requireUser())return;load();let i=db.items.find(x=>x.id===id);if(!i||i.status!=='active'){say('Ten produkt nie jest już dostępny.');return}if(i.sellerId===current){say('Nie możesz kupić własnego produktu.');return}db.orders.push({id:uid(),itemId:id,buyerId:current,sellerId:i.sellerId,price:i.price,status:'demo',createdAt:Date.now()});db.messages.push({id:uid(),from:current,to:i.sellerId,itemId:id,text:'Cześć! Jestem zainteresowany/a produktem „'+i.title+'”. (Zapytanie z demo)',createdAt:Date.now()});notify(i.sellerId,'order','Nowe zapytanie o produkt',user()?.name+' jest zainteresowany/a: '+i.title,id);save();closeModal();say('Utworzono testowe zamówienie — bez płatności.');go('orders')}
+function renderOrders(){page='orders';if(!requireUser())return;let orders=db.orders.filter(o=>o.buyerId===current||o.sellerId===current).sort((a,b)=>b.createdAt-a.createdAt);document.getElementById('app').innerHTML=`<div class="wrap page"><h2>Testowe zamówienia</h2><div class="notice" style="margin-bottom:18px">To tylko demonstracja przepływu zakupowego. Nie są pobierane pieniądze, nie ma etykiet wysyłkowych ani ochrony kupującego.</div><div class="panel tablelist">${orders.length?orders.map(o=>{let i=db.items.find(x=>x.id===o.itemId),buyer=db.users.find(u=>u.id===o.buyerId),seller=db.users.find(u=>u.id===o.sellerId);return `<div class="listrow">${i?imageMarkup(i,'thumb'):'<div class="thumb">📦</div>'}<div class="grow"><strong>${esc(i?.title||'Usunięty produkt')}</strong><p>${money(o.price)} · ${o.buyerId===current?'Kupujesz':'Sprzedajesz'} · ${new Date(o.createdAt).toLocaleString('pl-PL')}</p><p>Kupujący: ${esc(buyer?.name||'')} · Sprzedawca: ${esc(seller?.name||'')}</p></div><span class="badge">DEMO</span></div>`}).join(''):'<div class="empty">Nie ma jeszcze zamówień testowych.</div>'}</div></div>`}
+function renderMessages(){page='messages';if(!requireUser())return;let pairs=[];db.messages.forEach(m=>{if(m.from!==current&&m.to!==current)return;let other=m.from===current?m.to:m.from;let key=[other,m.itemId||''].join('|');if(!pairs.some(p=>p.key===key))pairs.push({key,other,itemId:m.itemId})});if(activeChat&&!pairs.some(p=>p.key===activeChat)){let [other,itemId]=activeChat.split('|');if(other&&other!==current)pairs.unshift({key:activeChat,other,itemId})}let selected=activeChat||pairs[0]?.key||'';activeChat=selected;let [otherId,itemId]=selected?selected.split('|'):['',''];let other=db.users.find(u=>u.id===otherId),it=db.items.find(i=>i.id===itemId);let msgs=db.messages.filter(m=>selected&&(m.itemId||'')===(itemId||'')&&((m.from===current&&m.to===otherId)||(m.from===otherId&&m.to===current))).sort((a,b)=>a.createdAt-b.createdAt);document.getElementById('app').innerHTML=`<div class="wrap page"><h2>Wiadomości</h2><div class="two"><div class="panel"><div class="tablelist">${pairs.length?pairs.map(p=>{let u=db.users.find(x=>x.id===p.other),item=db.items.find(x=>x.id===p.itemId);return `<div class="listrow" style="cursor:pointer" onclick="activeChat='${p.key}';renderMessages()"><span class="avatar">${initials(u?.name)}</span><div class="grow"><strong>${esc(u?.name||'Użytkownik')}</strong><p>${esc(item?.title||'Rozmowa')}</p></div>${selected===p.key?'<span class="badge">Wybrano</span>':''}</div>`}).join(''):'<div class="empty">Nie masz rozmów. Otwórz produkt i kliknij „Napisz do sprzedającego”.</div>'}</div></div><div class="chatbox"><div class="chathead">${other?esc(other.name):'Wybierz rozmowę'}${it?' · '+esc(it.title):''}</div><div class="messages" id="messagesPane">${msgs.map(m=>`<div class="bubble ${m.from===current?'mine':''}">${esc(m.text)}<div style="font-size:10px;color:#858b9a;margin-top:4px">${new Date(m.createdAt).toLocaleTimeString('pl-PL',{hour:'2-digit',minute:'2-digit'})}</div></div>`).join('')||'<div class="muted">Napisz pierwszą wiadomość.</div>'}</div><form class="sendrow" onsubmit="sendMessage(event,'${otherId}','${itemId||''}')"><input id="messageText" maxlength="1000" placeholder="Napisz wiadomość..." ${!otherId?'disabled':''} required><button ${!otherId?'disabled':''}>Wyślij</button></form></div></div></div>`;let pane=document.getElementById('messagesPane');if(pane)pane.scrollTop=pane.scrollHeight}
+function sendMessage(e,to,itemId){e.preventDefault();if(!to||!requireUser())return;let textValue=document.getElementById('messageText').value.trim();if(!textValue)return;load();db.messages.push({id:uid(),from:current,to,itemId:itemId||'',text:textValue,createdAt:Date.now()});notify(to,'message','Nowa wiadomość od '+(user()?.name||'użytkownika'),textValue.slice(0,100),itemId||'');save();renderMessages()}
+function renderProfile(){page='profile';if(!requireUser())return;let u=user(),items=db.items.filter(i=>i.sellerId===current&&i.status==='active'),sold=db.items.filter(i=>i.sellerId===current&&i.status==='sold');document.getElementById('app').innerHTML=`<div class="wrap page"><div class="panel"><div class="profilehead"><span class="avatar big">${initials(u.name)}</span><div class="grow"><h2 style="margin:0">${esc(u.name)}</h2><div class="muted">Członek CLOVY od ${new Date(u.joinedAt).toLocaleDateString('pl-PL')}</div></div><button class="secondary" onclick="logout()">Wyloguj</button></div><div class="field"><label>O mnie</label><textarea id="bio" maxlength="300" placeholder="Napisz kilka słów o sobie...">${esc(u.bio||'')}</textarea></div><div class="actions"><button onclick="saveBio()">Zapisz profil</button></div></div><div class="tabs"><button class="secondary" onclick="go('myitems')">Moje ogłoszenia (${items.length+sold.length})</button><button class="secondary" onclick="go('favorites')">Polubione</button><button class="secondary" onclick="go('messages')">Wiadomości</button><button class="secondary" onclick="go('orders')">Zamówienia demo</button></div><div class="section-head"><h2>Aktywne ogłoszenia</h2><button onclick="go('add')">＋ Dodaj</button></div><section class="grid">${items.length?items.map(card).join(''):'<div class="empty">Nie masz aktywnych ogłoszeń.</div>'}</section><div class="panel"><h3>Testowanie na dwóch kartach</h3><p class="muted">Otwórz ten sam plik w dwóch kartach tej samej przeglądarki. Zaloguj różne konta. Zmiany są zapisywane lokalnie i synchronizowane między kartami, jeśli przeglądarka udostępnia wspólny magazyn dla tego pliku.</p><div class="actions"><button class="secondary" onclick="exportData()">Eksportuj dane demo</button><button class="danger" onclick="resetData()">Usuń wszystkie dane demo</button></div></div></div>`}
+function saveBio(){load();let u=user();if(!u)return;u.bio=document.getElementById('bio').value.trim();save();say('Zapisano opis profilu')}
+function logout(){current=null;activeChat=null;updateHeader();say('Wylogowano');go('home')}
+function exportData(){let blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='clovy-demo-backup.json';a.click();URL.revokeObjectURL(a.href)}
+function resetData(){if(!confirm('Usunąć wszystkie konta, ogłoszenia, polubienia, wiadomości i zamówienia zapisane w tej przeglądarce? Tej operacji nie można cofnąć.'))return;db=seed();current=null;save();seedDemoListings();load();go('home');say('Wyczyszczono dane demo i odtworzono katalog')}
+load();seedDemoListings();load();updateHeader();renderHome();
+</script>
+</body>
+</html>
