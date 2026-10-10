@@ -2,586 +2,981 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="FlipProfit — sprawdzaj opłacalność odsprzedaży produktów.">
-  <title>FlipProfit — kupuj mądrzej</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0e13">
+<meta name="description" content="FlipProfit — kalkulator zysku, portfel produktów i narzędzia dla sprzedawców.">
+<title>FlipProfit — Resale Dashboard</title>
 
-    :root {
-      --bg: #090d12;
-      --panel: #111820;
-      --border: #27323d;
-      --green: #65f0a5;
-      --muted: #95a4b5;
-      --white: #f4f7fa;
-    }
-
-    body {
-      background: var(--bg);
-      color: var(--white);
-      font-family: Inter, Arial, sans-serif;
-      min-height: 100vh;
-    }
-
-    header {
-      height: 76px;
-      padding: 0 7%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .logo { font-size: 25px; font-weight: 850; letter-spacing: -1px; }
-    .logo span { color: var(--green); }
-
-    .status {
-      color: var(--green);
-      border: 1px solid #28523c;
-      background: #10271c;
-      border-radius: 30px;
-      padding: 8px 12px;
-      font-size: 12px;
-    }
-
-    main { max-width: 1100px; width: 90%; margin: 65px auto; }
-
-    .eyebrow {
-      color: var(--green);
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      margin-bottom: 18px;
-    }
-
-    h1 {
-      font-size: clamp(38px, 6vw, 65px);
-      line-height: 1.06;
-      letter-spacing: -2px;
-      max-width: 750px;
-    }
-
-    h1 span { color: var(--green); }
-
-    .intro {
-      color: var(--muted);
-      line-height: 1.7;
-      margin-top: 20px;
-      max-width: 620px;
-    }
-
-    .layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 22px;
-      margin-top: 42px;
-    }
-
-    .card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 26px;
-    }
-
-    h2 { font-size: 19px; margin-bottom: 8px; }
-    .sub { color: var(--muted); font-size: 13px; line-height: 1.6; }
-
-    label {
-      display: block;
-      margin: 21px 0 8px;
-      font-size: 13px;
-      color: #d7e0e9;
-    }
-
-    .field {
-      display: flex;
-      align-items: center;
-      background: #0a1016;
-      border: 1px solid #33404d;
-      border-radius: 9px;
-      padding-right: 13px;
-    }
-
-    .field:focus-within { border-color: var(--green); }
-
-    input, select {
-      width: 100%;
-      min-width: 0;
-      background: transparent;
-      border: 0;
-      outline: 0;
-      color: var(--white);
-      padding: 13px;
-      font-size: 15px;
-    }
-
-    .suffix { color: var(--muted); font-size: 13px; }
-    select option { background: #111820; }
-
-    button {
-      cursor: pointer;
-      border: 0;
-      border-radius: 9px;
-      padding: 14px;
-      font-weight: 800;
-      font-size: 14px;
-    }
-
-    .primary {
-      width: 100%;
-      background: var(--green);
-      color: #07120b;
-      margin-top: 25px;
-    }
-
-    .primary:hover { background: #8bffc0; }
-
-    .result {
-      margin-top: 22px;
-      border: 1px solid var(--border);
-      border-radius: 13px;
-      padding: 20px;
-      background: #0b1117;
-    }
-
-    .result-label { color: var(--muted); font-size: 13px; }
-    .profit { font-size: 38px; font-weight: 850; margin: 9px 0; }
-    .positive { color: var(--green); }
-    .negative { color: #ff7777; }
-
-    .stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .stat {
-      padding: 14px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-    }
-
-    .stat small { color: var(--muted); display: block; margin-bottom: 7px; }
-    .stat strong { font-size: 17px; }
-
-    .note {
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.6;
-      margin-top: 17px;
-    }
-
-    .section-title { margin-top: 50px; margin-bottom: 20px; }
-
-    .features {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-    }
-
-    .feature {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 13px;
-      padding: 20px;
-    }
-
-    .feature-icon { font-size: 23px; margin-bottom: 14px; }
-    .feature h3 { font-size: 15px; margin-bottom: 9px; }
-    .feature p { font-size: 13px; color: var(--muted); line-height: 1.6; }
-
-    footer {
-      text-align: center;
-      padding: 30px 15px;
-      margin-top: 50px;
-      border-top: 1px solid var(--border);
-      color: #738092;
-      font-size: 12px;
-    }
-
-    @media (max-width: 720px) {
-      header { padding: 0 5%; }
-      main { margin-top: 42px; }
-      .layout { grid-template-columns: 1fr; }
-      .features { grid-template-columns: 1fr; }
-      .status { font-size: 10px; }
-    }
-  </style>
+<style>
+:root {
+  --bg:#0b0e13; --panel:#121720; --panel2:#171e29;
+  --border:#293342; --green:#69efaa; --text:#f1f5f9;
+  --muted:#95a2b3; --red:#ff777e; --yellow:#ffd479;
+}
+* {box-sizing:border-box}
+body {
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:Inter,Arial,sans-serif;font-size:14px;
+}
+button,input,select {font:inherit}
+button {cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible {
+  outline:2px solid var(--green);outline-offset:2px;
+}
+a {color:var(--green)}
+.layout {display:flex;min-height:100vh}
+.sidebar {
+  width:235px;flex-shrink:0;background:#0e1219;
+  border-right:1px solid var(--border);padding:25px 16px;
+}
+.brand {font-size:25px;font-weight:900;letter-spacing:-1px;padding:0 10px 8px}
+.brand span {color:var(--green)}
+.brand-sub {color:var(--muted);font-size:11px;padding:0 10px 30px}
+.nav-label {
+  color:#657386;font-size:10px;letter-spacing:1.5px;
+  font-weight:bold;padding:12px 10px;
+}
+.nav-btn {
+  display:flex;gap:12px;align-items:center;width:100%;
+  text-align:left;background:transparent;border:0;color:var(--muted);
+  padding:12px;border-radius:9px;margin:3px 0;
+}
+.nav-btn:hover,.nav-btn.active {background:#1a2723;color:var(--green)}
+.sidebar-bottom {margin-top:35px;padding:12px;color:var(--muted);font-size:11px;line-height:1.8}
+.main {min-width:0;flex:1}
+.topbar {
+  height:68px;padding:0 32px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;gap:15px;
+}
+.top-title {font-weight:800;font-size:17px}
+.top-right {display:flex;align-items:center;gap:12px}
+.badge {
+  display:inline-flex;align-items:center;gap:6px;border-radius:20px;
+  padding:7px 10px;background:#14271e;color:var(--green);
+  border:1px solid #294a38;font-size:11px;
+}
+.content {padding:30px;max-width:1500px;margin:auto}
+.page {display:none}
+.page.active {display:block}
+.page-heading {
+  display:flex;align-items:flex-start;justify-content:space-between;
+  gap:18px;margin-bottom:26px;
+}
+h1 {font-size:29px;letter-spacing:-1px;margin:0 0 9px}
+h2 {font-size:17px;margin:0 0 7px}
+h3 {font-size:14px;margin:0 0 8px}
+.muted {color:var(--muted);line-height:1.65}
+.small {font-size:12px}
+.grid {display:grid;gap:17px}
+.stats {grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:22px}
+.card {
+  background:var(--panel);border:1px solid var(--border);
+  border-radius:14px;padding:21px;min-width:0;
+}
+.stat-label {font-size:12px;color:var(--muted);margin-bottom:15px}
+.stat-value {font-size:25px;font-weight:850;letter-spacing:-.7px;overflow-wrap:anywhere}
+.stat-foot {font-size:11px;color:var(--muted);margin-top:10px}
+.green {color:var(--green)}
+.red {color:var(--red)}
+.yellow {color:var(--yellow)}
+.two-col {grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr)}
+.three-col {grid-template-columns:repeat(3,minmax(0,1fr))}
+.field {margin-top:17px}
+label {display:block;color:#c7d1df;font-size:12px;margin-bottom:8px}
+input,select {
+  width:100%;padding:12px;background:#0b1017;border:1px solid #344052;
+  color:var(--text);border-radius:8px;min-width:0;
+}
+input::placeholder {color:#647286}
+select option {background:#121720}
+input:focus,select:focus {border-color:var(--green);outline:none}
+.form-grid {display:grid;grid-template-columns:1fr 1fr;gap:0 13px}
+.btn {
+  display:inline-flex;justify-content:center;align-items:center;gap:7px;
+  border:1px solid var(--border);border-radius:8px;padding:11px 14px;
+  background:#1b2430;color:var(--text);font-weight:700;
+}
+.btn:hover {filter:brightness(1.14)}
+.btn-primary {background:var(--green);color:#07140c;border-color:var(--green)}
+.btn-danger {color:var(--red)}
+.btn-small {padding:7px 9px;font-size:11px}
+.btn-block {width:100%;margin-top:20px}
+.result-box {
+  padding:20px;background:#0b1310;border:1px solid #284a38;
+  border-radius:12px;margin-top:18px;
+}
+.result-number {font-size:35px;font-weight:900;letter-spacing:-1px;margin:10px 0}
+.mini-stats {display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.mini-stat {padding:13px;border:1px solid var(--border);border-radius:9px}
+.mini-stat span {display:block;font-size:11px;color:var(--muted);margin-bottom:8px}
+.mini-stat strong {font-size:16px;overflow-wrap:anywhere}
+.section-top {
+  display:flex;justify-content:space-between;align-items:center;
+  gap:15px;margin-bottom:17px;
+}
+.toolbar {display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.toolbar input {flex:1;min-width:180px}
+.toolbar select {width:auto;min-width:140px}
+.table-wrap {overflow-x:auto}
+table {width:100%;border-collapse:collapse;white-space:nowrap}
+th {
+  color:var(--muted);font-size:11px;text-align:left;
+  font-weight:600;padding:13px 10px;border-bottom:1px solid var(--border);
+}
+td {padding:14px 10px;border-bottom:1px solid #222c38;font-size:12px}
+tr:last-child td {border-bottom:0}
+.product-name {font-weight:750;color:var(--text)}
+.status {
+  display:inline-block;border-radius:20px;padding:5px 8px;font-size:10px;
+  background:#202b37;color:#b9c7d8;
+}
+.status.active {background:#14291f;color:var(--green)}
+.status.sold {background:#20283b;color:#a9bcff}
+.empty {padding:28px;text-align:center;color:var(--muted);line-height:1.8}
+.progress {
+  height:8px;background:#252f3b;border-radius:10px;overflow:hidden;margin:17px 0;
+}
+.progress div {height:100%;background:var(--green);width:0%;transition:width .2s}
+.history-row {
+  display:flex;justify-content:space-between;gap:12px;align-items:center;
+  padding:13px 0;border-bottom:1px solid var(--border);
+}
+.history-row:last-child {border:0}
+.history-row strong {display:block;margin-bottom:5px}
+.history-row small {color:var(--muted)}
+.notice {
+  padding:13px;border:1px solid #594b2b;background:#292316;
+  color:#f2d99b;border-radius:9px;font-size:12px;line-height:1.6;
+}
+footer {
+  border-top:1px solid var(--border);margin-top:35px;padding:22px 0;
+  color:#647286;font-size:11px;line-height:1.8;
+}
+.mobile-brand {display:none}
+@media(max-width:1050px) {
+  .stats {grid-template-columns:repeat(2,minmax(0,1fr))}
+  .two-col {grid-template-columns:1fr}
+}
+@media(max-width:700px) {
+  .layout {display:block}
+  .sidebar {
+    width:100%;padding:12px;border-right:0;border-bottom:1px solid var(--border);
+    position:static;
+  }
+  .brand {font-size:22px;padding:0 5px 7px}
+  .brand-sub,.nav-label,.sidebar-bottom {display:none}
+  .nav-list {display:flex;overflow-x:auto;gap:5px}
+  .nav-btn {white-space:nowrap;width:auto;margin:0;padding:10px;font-size:12px}
+  .topbar {padding:0 16px;height:56px}
+  .content {padding:20px 14px}
+  h1 {font-size:25px}
+  .page-heading {flex-direction:column}
+  .stats {gap:10px}
+  .card {padding:16px}
+  .stat-value {font-size:21px}
+  .three-col {grid-template-columns:1fr}
+  .form-grid {grid-template-columns:1fr}
+  .top-right .badge {display:none}
+  .toolbar {display:grid;grid-template-columns:1fr}
+  .toolbar select {width:100%}
+}
+</style>
 </head>
+
 <body>
-  <header>
-    <div class="logo">Flip<span>Profit</span></div>
-    <div class="status">● WERSJA BETA</div>
-  </header>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">Flip<span>Profit</span></div>
+    <div class="brand-sub">RESALE BUSINESS TOOLS</div>
+    <div class="nav-label">WORKSPACE</div>
+    <nav class="nav-list">
+      <button class="nav-btn active" data-page="dashboard">▦ Dashboard</button>
+      <button class="nav-btn" data-page="calculator">▤ Kalkulator</button>
+      <button class="nav-btn" data-page="products">▣ Moje produkty</button>
+      <button class="nav-btn" data-page="history">◷ Historia analiz</button>
+      <button class="nav-btn" data-page="settings">⚙ Ustawienia</button>
+    </nav>
+    <div class="sidebar-bottom">
+      Wersja 2.0 · lokalna beta<br>
+      Dane pozostają w tej przeglądarce.
+    </div>
+  </aside>
 
-  <main>
-    <p class="eyebrow">SMART RESALE TOOLS</p>
-    <h1>Nie kupuj w ciemno.<br><span>Licz swój zysk.</span></h1>
-    <p class="intro">
-      Sprawdź opłacalność produktu przed zakupem. Oblicz zysk,
-      marżę i maksymalną cenę zakupu, żeby podejmować
-      lepsze decyzje sprzedażowe.
-    </p>
+  <div class="main">
+    <header class="topbar">
+      <div class="top-title" id="topTitle">Dashboard</div>
+      <div class="top-right">
+        <span class="badge">● WERSJA BETA</span>
+      </div>
+    </header>
 
-    <div class="layout">
-      <section class="card">
-        <h2>Kalkulator opłacalności</h2>
-        <p class="sub">Wprowadź dane produktu, który chcesz odsprzedać.</p>
+    <main class="content">
 
-        <form id="calcForm">
-          <label for="product">Nazwa produktu</label>
-          <div class="field">
-            <input id="product" maxlength="100"
-              placeholder="Np. słuchawki Bluetooth">
+      <!-- DASHBOARD -->
+      <section class="page active" id="page-dashboard">
+        <div class="page-heading">
+          <div>
+            <h1>Twój biznes. Twoje liczby.</h1>
+            <p class="muted">Kontroluj produkty, koszty i potencjalny zysk.</p>
+          </div>
+          <button class="btn btn-primary" data-goto="calculator">+ Nowa analiza</button>
+        </div>
+
+        <div class="grid stats">
+          <div class="card">
+            <div class="stat-label">Aktywne produkty</div>
+            <div class="stat-value" id="dashActive">0</div>
+            <div class="stat-foot">W Twoim portfelu</div>
+          </div>
+          <div class="card">
+            <div class="stat-label">Kapitał w aktywnych produktach</div>
+            <div class="stat-value" id="dashCapital">0,00 zł</div>
+            <div class="stat-foot">Cena zakupu + koszty</div>
+          </div>
+          <div class="card">
+            <div class="stat-label">Potencjalny zysk</div>
+            <div class="stat-value green" id="dashPotential">0,00 zł</div>
+            <div class="stat-foot">Jeśli produkty sprzedadzą się po planowanej cenie</div>
+          </div>
+          <div class="card">
+            <div class="stat-label">Zrealizowany zysk</div>
+            <div class="stat-value" id="dashRealized">0,00 zł</div>
+            <div class="stat-foot">Na podstawie zapisanych transakcji</div>
+          </div>
+        </div>
+
+        <div class="grid two-col">
+          <div class="card">
+            <div class="section-top">
+              <div>
+                <h2>Ostatnie produkty</h2>
+                <p class="muted small">Twoje ostatnio dodane pozycje.</p>
+              </div>
+              <button class="btn btn-small" data-goto="products">Wszystkie →</button>
+            </div>
+            <div id="dashProducts" class="empty">Dodaj swój pierwszy produkt.</div>
           </div>
 
-          <label for="buy">Cena zakupu</label>
-          <div class="field">
-            <input id="buy" type="number" min="0" step="0.01"
-              value="100" required>
-            <span class="suffix">PLN</span>
+          <div class="card">
+            <h2>Cel finansowy</h2>
+            <p class="muted small">Monitoruj postęp w kierunku własnego celu.</p>
+            <div class="field">
+              <label for="goalInput">Docelowy zysk (PLN)</label>
+              <input id="goalInput" type="number" min="1" step="100" value="10000">
+            </div>
+            <div class="progress"><div id="goalBar"></div></div>
+            <div class="section-top">
+              <span class="muted small">Zrealizowany zysk</span>
+              <strong id="goalProgress">0%</strong>
+            </div>
+            <p class="notice">Cel jest wskaźnikiem planowania, a nie prognozą ani gwarancją zarobku.</p>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:18px">
+          <h2>Jak korzystać z FlipProfit?</h2>
+          <div class="grid three-col" style="margin-top:18px">
+            <div>
+              <h3>01 · Oblicz</h3>
+              <p class="muted small">Wprowadź cenę zakupu, cenę sprzedaży, prowizję i dodatkowe koszty.</p>
+            </div>
+            <div>
+              <h3>02 · Zapisz</h3>
+              <p class="muted small">Dodaj produkt do portfela, aby monitorować jego potencjalną opłacalność.</p>
+            </div>
+            <div>
+              <h3>03 · Rozlicz</h3>
+              <p class="muted small">Po sprzedaży zapisz faktyczną cenę transakcji i porównaj wynik z planem.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CALCULATOR -->
+      <section class="page" id="page-calculator">
+        <div class="page-heading">
+          <div>
+            <h1>Kalkulator opłacalności</h1>
+            <p class="muted">Policz wynik przed podjęciem decyzji zakupowej.</p>
+          </div>
+        </div>
+
+        <div class="grid two-col">
+          <div class="card">
+            <h2>Dane produktu</h2>
+            <p class="muted small">Wprowadź wartości w złotych i procentach.</p>
+            <form id="calcForm">
+              <div class="field">
+                <label for="calcName">Nazwa produktu</label>
+                <input id="calcName" maxlength="100" placeholder="Np. słuchawki Bluetooth">
+              </div>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="calcBuy">Cena zakupu (zł)</label>
+                  <input id="calcBuy" type="number" min="0" step="0.01" value="100" required>
+                </div>
+                <div class="field">
+                  <label for="calcSell">Cena sprzedaży (zł)</label>
+                  <input id="calcSell" type="number" min="0" step="0.01" value="200" required>
+                </div>
+                <div class="field">
+                  <label for="calcCosts">Pozostałe koszty (zł)</label>
+                  <input id="calcCosts" type="number" min="0" step="0.01" value="20" required>
+                </div>
+                <div class="field">
+                  <label for="calcFee">Prowizja (%)</label>
+                  <input id="calcFee" type="number" min="0" max="99.99" step="0.1" value="10" required>
+                </div>
+              </div>
+              <button class="btn btn-primary btn-block" type="submit">Zapisz analizę w historii</button>
+              <button class="btn btn-block" type="button" id="addCalcProduct">+ Dodaj do portfela</button>
+            </form>
           </div>
 
-          <label for="sell">Przewidywana cena sprzedaży</label>
-          <div class="field">
-            <input id="sell" type="number" min="0" step="0.01"
-              value="180" required>
-            <span class="suffix">PLN</span>
+          <div class="card">
+            <h2>Wynik obliczeń</h2>
+            <p class="muted small">Wynik aktualizuje się podczas wpisywania danych.</p>
+            <div class="result-box">
+              <div class="muted small">Szacowany zysk netto</div>
+              <div class="result-number green" id="calcProfit">60,00 zł</div>
+              <div class="muted small" id="calcSummary">Przy podanych założeniach.</div>
+            </div>
+            <div class="mini-stats">
+              <div class="mini-stat"><span>Marża od sprzedaży</span><strong id="calcMargin">30%</strong></div>
+              <div class="mini-stat"><span>ROI od kosztów</span><strong id="calcROI">50%</strong></div>
+              <div class="mini-stat"><span>Całkowity koszt</span><strong id="calcTotal">120,00 zł</strong></div>
+              <div class="mini-stat"><span>Cena wyjścia na zero</span><strong id="calcBreakEven">133,33 zł</strong></div>
+            </div>
+            <p class="muted small" style="margin-top:17px" id="calcAdvice"></p>
           </div>
+        </div>
 
-          <label for="costs">Pozostałe koszty łącznie</label>
-          <div class="field">
-            <input id="costs" type="number" min="0" step="0.01"
-              value="15" required>
-            <span class="suffix">PLN</span>
+        <div class="card" style="margin-top:18px">
+          <h2>Maksymalna cena zakupu</h2>
+          <p class="muted small">Jaka cena zakupu pozwoli osiągnąć wybrany zysk?</p>
+          <div class="grid three-col">
+            <div class="field">
+              <label for="maxSell">Cena sprzedaży (zł)</label>
+              <input id="maxSell" type="number" min="0" step="0.01" value="200">
+            </div>
+            <div class="field">
+              <label for="maxCosts">Pozostałe koszty (zł)</label>
+              <input id="maxCosts" type="number" min="0" step="0.01" value="20">
+            </div>
+            <div class="field">
+              <label for="maxFee">Prowizja (%)</label>
+              <input id="maxFee" type="number" min="0" max="99.99" step="0.1" value="10">
+            </div>
+            <div class="field">
+              <label for="maxProfit">Docelowy zysk (zł)</label>
+              <input id="maxProfit" type="number" min="0" step="0.01" value="50">
+            </div>
           </div>
-
-          <label for="fee">Prowizja od sprzedaży</label>
-          <div class="field">
-            <input id="fee" type="number" min="0" max="100"
-              step="0.1" value="0" required>
-            <span class="suffix">%</span>
+          <div class="result-box">
+            <div class="muted small">Maksymalna cena zakupu</div>
+            <div class="result-number green" id="maxBuyResult">110,00 zł</div>
+            <p class="muted small" id="maxBuyAdvice"></p>
           </div>
+        </div>
+      </section>
 
-          <button class="primary" type="submit">Oblicz opłacalność →</button>
-        </form>
-        
-<div style="margin-top:28px; padding-top:22px; border-top:1px solid #27323d;">
-  <h2>Maksymalna cena zakupu</h2>
-  <p class="sub">Ustal cel zysku i sprawdź, ile możesz zapłacić.</p>
+      <!-- PRODUCTS -->
+      <section class="page" id="page-products">
+        <div class="page-heading">
+          <div>
+            <h1>Moje produkty</h1>
+            <p class="muted">Zarządzaj potencjalnymi zakupami i zakończonymi transakcjami.</p>
+          </div>
+          <button class="btn btn-primary" id="newProductBtn">+ Dodaj produkt</button>
+        </div>
 
-  <label for="targetSell">Planowana cena sprzedaży</label>
-  <div class="field">
-    <input id="targetSell" type="number" min="0" step="0.01" value="200">
-    <span class="suffix">PLN</span>
-  </div>
+        <div class="card" id="productEditor" style="display:none;margin-bottom:18px">
+          <h2 id="editorTitle">Nowy produkt</h2>
+          <form id="productForm">
+            <input id="editId" type="hidden">
+            <div class="form-grid">
+              <div class="field">
+                <label for="prodName">Nazwa produktu</label>
+                <input id="prodName" maxlength="100" required placeholder="Nazwa produktu">
+              </div>
+              <div class="field">
+                <label for="prodPlatform">Platforma / źródło</label>
+                <select id="prodPlatform">
+                  <option>OLX</option><option>Vinted</option>
+                  <option>Allegro</option><option>eBay</option>
+                  <option>Facebook Marketplace</option><option>Inne</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="prodBuy">Cena zakupu (zł)</label>
+                <input id="prodBuy" type="number" min="0" step="0.01" required>
+              </div>
+              <div class="field">
+                <label for="prodSell">Planowana cena sprzedaży (zł)</label>
+                <input id="prodSell" type="number" min="0" step="0.01" required>
+              </div>
+              <div class="field">
+                <label for="prodCosts">Pozostałe koszty (zł)</label>
+                <input id="prodCosts" type="number" min="0" step="0.01" value="0" required>
+              </div>
+              <div class="field">
+                <label for="prodFee">Prowizja (%)</label>
+                <input id="prodFee" type="number" min="0" max="99.99" step="0.1" value="0" required>
+              </div>
+            </div>
+            <div class="toolbar" style="margin-top:20px;margin-bottom:0">
+              <button class="btn btn-primary" type="submit">Zapisz produkt</button>
+              <button class="btn" type="button" id="cancelProduct">Anuluj</button>
+            </div>
+          </form>
+        </div>
 
-  <label for="targetCosts">Pozostałe koszty</label>
-  <div class="field">
-    <input id="targetCosts" type="number" min="0" step="0.01" value="20">
-    <span class="suffix">PLN</span>
-  </div>
+        <div class="card">
+          <div class="toolbar">
+            <input id="productSearch" placeholder="Szukaj produktu...">
+            <select id="productFilter">
+              <option value="all">Wszystkie statusy</option>
+              <option value="active">Aktywne</option>
+              <option value="sold">Sprzedane</option>
+            </select>
+            <button class="btn" id="exportProducts">Eksport CSV</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr>
+                <th>Produkt</th><th>Status</th><th>Zakup</th>
+                <th>Sprzedaż</th><th>Wynik</th><th>Akcje</th>
+              </tr></thead>
+              <tbody id="productsBody"></tbody>
+            </table>
+          </div>
+          <div id="productsEmpty" class="empty">Nie masz jeszcze produktów. Dodaj pierwszy!</div>
+        </div>
+      </section>
 
-  <label for="targetFee">Prowizja</label>
-  <div class="field">
-    <input id="targetFee" type="number" min="0" max="100" step="0.1" value="0">
-    <span class="suffix">%</span>
-  </div>
+      <!-- HISTORY -->
+      <section class="page" id="page-history">
+        <div class="page-heading">
+          <div>
+            <h1>Historia analiz</h1>
+            <p class="muted">Wcześniej zapisane kalkulacje.</p>
+          </div>
+          <button class="btn" id="exportHistory">Eksport historii CSV</button>
+        </div>
+        <div class="card">
+          <div id="historyList" class="empty">Nie zapisano jeszcze żadnej analizy.</div>
+          <button class="btn btn-danger btn-block" id="clearHistory">Wyczyść historię analiz</button>
+        </div>
+      </section>
 
-  <label for="targetProfit">Chcę zarobić</label>
-  <div class="field">
-    <input id="targetProfit" type="number" min="0" step="0.01" value="50">
-    <span class="suffix">PLN</span>
-  </div>
+      <!-- SETTINGS -->
+      <section class="page" id="page-settings">
+        <div class="page-heading">
+          <div>
+            <h1>Ustawienia</h1>
+            <p class="muted">Zarządzaj celem i swoimi danymi lokalnymi.</p>
+          </div>
+        </div>
+        <div class="grid two-col">
+          <div class="card">
+            <h2>Cel finansowy</h2>
+            <div class="field">
+              <label for="settingsGoal">Docelowy zysk (zł)</label>
+              <input id="settingsGoal" type="number" min="1" step="100" value="10000">
+            </div>
+            <button class="btn btn-primary btn-block" id="saveGoal">Zapisz cel</button>
+          </div>
+          <div class="card">
+            <h2>Twoje dane</h2>
+            <p class="muted small">Dane są przechowywane w localStorage tej przeglądarki. Nie synchronizują się automatycznie z innymi urządzeniami.</p>
+            <button class="btn btn-block" id="backupData">Pobierz kopię zapasową JSON</button>
+            <label for="restoreFile" style="margin-top:18px">Przywróć kopię zapasową</label>
+            <input id="restoreFile" type="file" accept=".json,application/json">
+            <button class="btn btn-block" id="restoreData">Przywróć dane z pliku</button>
+            <button class="btn btn-danger btn-block" id="deleteAll">Usuń wszystkie dane</button>
+          </div>
+        </div>
+        <div class="notice" style="margin-top:18px">
+          FlipProfit to narzędzie do szacowania opłacalności. Nie pobiera automatycznie ofert z marketplace'ów i nie gwarantuje sprzedaży ani zysku. Pamiętaj o kosztach, podatkach, zwrotach i zasadach danej platformy.
+        </div>
+      </section>
 
-  <div class="result">
-    <p class="result-label">Maksymalna cena zakupu</p>
-    <div class="profit positive" id="maxBuy">130,00 zł</div>
-    <p class="sub" id="targetMessage">Cena pozwalająca osiągnąć wybrany cel.</p>
+      <footer>
+        <strong>FlipProfit</strong> · Niezależne narzędzie dla sprzedawców.<br>
+        Wyniki są szacunkami na podstawie wprowadzonych danych. Przed zakupem sprawdź rzeczywiste ceny i koszty.
+      </footer>
+    </main>
   </div>
 </div>
 
-      </section>
+<script>
+"use strict";
 
-      <section class="card">
-        <h2>Wynik analizy</h2>
-        <p class="sub">Wynik zmienia się po przeliczeniu danych.</p>
+const STORAGE = {
+  products: "flipprofit_products_v2",
+  history: "flipprofit_history_v2",
+  goal: "flipprofit_goal_v2"
+};
 
-        <div class="result" aria-live="polite">
-          <p class="result-label">Szacowany zysk na produkcie</p>
-          <div class="profit positive" id="profit">65,00 zł</div>
-          <p class="sub" id="summary">Przy podanych założeniach.</p>
-        </div>
-
-        <div class="stats">
-          <div class="stat">
-            <small>Marża od sprzedaży</small>
-            <strong id="margin">36,11%</strong>
-          </div>
-          <div class="stat">
-            <small>Zwrot na kosztach</small>
-            <strong id="roi">56,52%</strong>
-          </div>
-          <div class="stat">
-            <small>Łączne koszty</small>
-            <strong id="total">115,00 zł</strong>
-          </div>
-          <div class="stat">
-            <small>Cena bez zysku</small>
-            <strong id="breakEven">115,00 zł</strong>
-          </div>
-        </div>
-
-        <p class="note" id="advice">
-          Przy tych założeniach transakcja przynosi dodatni wynik.
-          To prognoza, nie gwarancja sprzedaży.
-        </p>
-      </section>
-    </div>
-
-    
-<section class="card" style="margin-top:24px;">
-  <h2>Historia analiz</h2>
-  <p class="sub">Zapisuj produkty i wracaj do swoich obliczeń.</p>
-
-  <button class="primary" id="saveAnalysis" type="button">
-    Zapisz aktualną analizę
-  </button>
-
-  <div id="historyList" style="margin-top:18px;"></div>
-
-  <button id="clearHistory" type="button"
-    style="width:100%; margin-top:15px; background:#252b36; color:white;">
-    Wyczyść historię
-  </button>
-</section>
-
-    <h2 class="section-title">Narzędzia dla sprzedawców</h2>
-
-    <div class="features">
-      <article class="feature">
-        <div class="feature-icon">📈</div>
-        <h3>Kontroluj zysk</h3>
-        <p>Uwzględniaj koszty i prowizje, zanim zdecydujesz się na zakup.</p>
-      </article>
-      <article class="feature">
-        <div class="feature-icon">🎯</div>
-        <h3>Ustal cenę zakupu</h3>
-        <p>Sprawdzaj, ile maksymalnie możesz zapłacić przy wybranym celu zysku.</p>
-      </article>
-      <article class="feature">
-        <div class="feature-icon">🧠</div>
-        <h3>Rozwijaj swój biznes</h3>
-        <p>W przyszłości dodamy kolejne narzędzia dla osób zajmujących się odsprzedażą.</p>
-      </article>
-    </div>
-
-    <footer>
-      FlipProfit · Niezależne narzędzie do szacowania opłacalności.
-      Wyniki zależą od poprawności podanych danych.
-    </footer>
-  </main>
-
-  <script>
-    const form = document.getElementById("calcForm");
-
-    const money = value =>
-      value.toLocaleString("pl-PL", {
-        style: "currency",
-        currency: "PLN"
-      });
-
-    const percent = value =>
-      Number.isFinite(value)
-        ? value.toLocaleString("pl-PL", {
-            maximumFractionDigits: 2
-          }) + "%"
-        : "—";
-
-    function calculate(event) {
-      if (event) event.preventDefault();
-
-      const buy = Number(document.getElementById("buy").value);
-      const sell = Number(document.getElementById("sell").value);
-      const costs = Number(document.getElementById("costs").value);
-      const fee = Number(document.getElementById("fee").value);
-      const name = document.getElementById("product").value.trim();
-
-      if (
-        !Number.isFinite(buy) || !Number.isFinite(sell) ||
-        !Number.isFinite(costs) || !Number.isFinite(fee) ||
-        buy < 0 || sell < 0 || costs < 0 ||
-        fee < 0 || fee > 100
-      ) {
-        return;
-      }
-
-      const revenueAfterFee = sell * (1 - fee / 100);
-      const totalCosts = buy + costs;
-      const profit = revenueAfterFee - totalCosts;
-      const margin = sell > 0 ? profit / sell * 100 : NaN;
-      const roi = totalCosts > 0 ? profit / totalCosts * 100 : NaN;
-      const breakEven = 1 - fee / 100 > 0
-        ? totalCosts / (1 - fee / 100)
-        : Infinity;
-
-      const profitEl = document.getElementById("profit");
-      profitEl.textContent = money(profit);
-      profitEl.className = "profit " +
-        (profit >= 0 ? "positive" : "negative");
-
-      document.getElementById("summary").textContent =
-        name ? "Analiza produktu: " + name : "Przy podanych założeniach.";
-
-      document.getElementById("margin").textContent = percent(margin);
-      document.getElementById("roi").textContent = percent(roi);
-      document.getElementById("total").textContent = money(totalCosts);
-      document.getElementById("breakEven").textContent =
-        Number.isFinite(breakEven) ? money(breakEven) : "Brak";
-
-      document.getElementById("advice").textContent =
-        profit > 0
-          ? "Wynik jest dodatni. Uwzględnij też możliwe zwroty, podatki i inne pominięte koszty."
-          : profit < 0
-          ? "Przy tych założeniach ponosisz stratę. Rozważ niższą cenę zakupu lub wyższą cenę sprzedaży."
-          : "Wychodzisz na zero przed ewentualnymi dodatkowymi kosztami i podatkami.";
-    }
-
-    form.addEventListener("submit", calculate);
-
-    ["buy", "sell", "costs", "fee", "product"].forEach(id => {
-      document.getElementById(id).addEventListener("input", calculate);
-    });
-    
-function calculateMaxBuy() {
-  const sell = Number(document.getElementById("targetSell").value);
-  const costs = Number(document.getElementById("targetCosts").value);
-  const fee = Number(document.getElementById("targetFee").value);
-  const profit = Number(document.getElementById("targetProfit").value);
-
-  const output = document.getElementById("maxBuy");
-  const message = document.getElementById("targetMessage");
-
-  if (
-    ![sell, costs, fee, profit].every(Number.isFinite) ||
-    sell < 0 || costs < 0 || profit < 0 || fee < 0 || fee >= 100
-  ) {
-    output.textContent = "Sprawdź dane";
-    message.textContent = "Wpisz prawidłowe wartości.";
-    return;
-  }
-
-  const maxBuy = sell * (1 - fee / 100) - costs - profit;
-
-  output.textContent = money(maxBuy);
-  output.className = "profit " + (maxBuy >= 0 ? "positive" : "negative");
-
-  message.textContent = maxBuy >= 0
-    ? "Nie zapłać więcej, jeśli chcesz osiągnąć wybrany zysk."
-    : "Przy tej cenie sprzedaży cel jest niemożliwy bez zmiany kosztów lub ceny.";
-}
-
-["targetSell", "targetCosts", "targetFee", "targetProfit"].forEach(id => {
-  document.getElementById(id).addEventListener("input", calculateMaxBuy);
+const $ = id => document.getElementById(id);
+const money = n => Number(n).toLocaleString("pl-PL", {
+  style:"currency", currency:"PLN"
 });
+const pct = n => Number.isFinite(n)
+  ? n.toLocaleString("pl-PL",{maximumFractionDigits:2}) + "%"
+  : "—";
 
-calculateMaxBuy();
-
-
-const historyKey = "flipprofit_history_v1";
-const historyList = document.getElementById("historyList");
-
-function getHistory() {
+function readArray(key) {
   try {
-    const data = JSON.parse(localStorage.getItem(historyKey) || "[]");
-    return Array.isArray(data) ? data : [];
-  } catch {
-    return [];
-  }
+    const v = JSON.parse(localStorage.getItem(key) || "[]");
+    return Array.isArray(v) ? v : [];
+  } catch { return []; }
+}
+function readGoal() {
+  const n = Number(localStorage.getItem(STORAGE.goal) || 10000);
+  return Number.isFinite(n) && n > 0 ? n : 10000;
+}
+function saveArray(key, value) {
+  localStorage.setItem(key, JSON.stringify(value));
+}
+function makeId() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2,8);
+}
+function escapeCSV(value) {
+  return '"' + String(value ?? "").replace(/"/g,'""') + '"';
+}
+function downloadFile(name, content, type) {
+  const blob = new Blob([content], {type});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+function validNumber(value) {
+  return value !== "" && Number.isFinite(Number(value)) && Number(value) >= 0;
+}
+function getCalcValues() {
+  return {
+    name:$("calcName").value.trim(),
+    buy:Number($("calcBuy").value),
+    sell:Number($("calcSell").value),
+    costs:Number($("calcCosts").value),
+    fee:Number($("calcFee").value)
+  };
+}
+function profitOf(item, actual=false) {
+  const sell = actual && item.status === "sold"
+    ? Number(item.actualSell)
+    : Number(item.sell);
+  return sell * (1 - Number(item.fee)/100)
+    - Number(item.buy) - Number(item.costs);
+}
+function validateEconomics(v) {
+  return [v.buy,v.sell,v.costs,v.fee].every(Number.isFinite) &&
+    v.buy >= 0 && v.sell >= 0 && v.costs >= 0 &&
+    v.fee >= 0 && v.fee < 100;
 }
 
-function renderHistory() {
-  const history = getHistory();
-  historyList.replaceChildren();
-
-  if (history.length === 0) {
-    const empty = document.createElement("p");
-    empty.className = "sub";
-    empty.textContent = "Nie masz jeszcze zapisanych analiz.";
-    historyList.appendChild(empty);
+function updateCalculator() {
+  const v = getCalcValues();
+  if (!validateEconomics(v)) {
+    $("calcProfit").textContent = "Sprawdź dane";
+    $("calcAdvice").textContent = "Wprowadź poprawne wartości. Prowizja musi być mniejsza niż 100%.";
     return;
   }
+  const total = v.buy + v.costs;
+  const revenue = v.sell * (1-v.fee/100);
+  const p = revenue-total;
+  const margin = v.sell > 0 ? p/v.sell*100 : NaN;
+  const roi = total > 0 ? p/total*100 : NaN;
+  const breakeven = revenue >= 0 && (1-v.fee/100)>0
+    ? total/(1-v.fee/100) : Infinity;
 
-  history.forEach(item => {
-    const entry = document.createElement("div");
-    entry.style.cssText =
-      "padding:14px 0;border-bottom:1px solid #27323d;";
-
-    const name = document.createElement("strong");
-    name.textContent = item.name || "Produkt bez nazwy";
-
-    const details = document.createElement("p");
-    details.className = "sub";
-    details.style.marginTop = "7px";
-    details.textContent =
-      "Zakup: " + money(item.buy) +
-      " · Sprzedaż: " + money(item.sell) +
-      " · Zysk: " + money(item.profit);
-
-    entry.append(name, details);
-    historyList.appendChild(entry);
-  });
+  $("calcProfit").textContent = money(p);
+  $("calcProfit").className = "result-number " + (p >= 0 ? "green":"red");
+  $("calcSummary").textContent = v.name
+    ? "Analiza produktu: " + v.name : "Szacunek na podstawie podanych danych.";
+  $("calcMargin").textContent = pct(margin);
+  $("calcROI").textContent = pct(roi);
+  $("calcTotal").textContent = money(total);
+  $("calcBreakEven").textContent = Number.isFinite(breakeven)
+    ? money(breakeven) : "—";
+  $("calcAdvice").textContent = p > 0
+    ? "Wynik dodatni przed nieuwzględnionymi kosztami i podatkami."
+    : p < 0 ? "Przy tych założeniach transakcja przynosi stratę."
+    : "Przychód po prowizji pokrywa wskazane koszty.";
+}
+function updateMaxBuy() {
+  const sell=Number($("maxSell").value);
+  const costs=Number($("maxCosts").value);
+  const fee=Number($("maxFee").value);
+  const target=Number($("maxProfit").value);
+  const out=$("maxBuyResult");
+  if (![sell,costs,fee,target].every(Number.isFinite) ||
+      sell<0 || costs<0 || target<0 || fee<0 || fee>=100) {
+    out.textContent="Sprawdź dane";
+    $("maxBuyAdvice").textContent="Uzupełnij poprawne wartości.";
+    return;
+  }
+  const result=sell*(1-fee/100)-costs-target;
+  out.textContent=money(result);
+  out.className="result-number "+(result>=0?"green":"red");
+  $("maxBuyAdvice").textContent=result>=0
+    ? "Aby osiągnąć cel, nie zapłać za produkt więcej niż wskazana kwota."
+    : "Przy tych danych cel jest niemożliwy nawet przy zakupie za 0 zł.";
+}
+function refreshCalculator() {
+  updateCalculator();
+  updateMaxBuy();
 }
 
-document.getElementById("saveAnalysis").addEventListener("click", () => {
-  const buy = Number(document.getElementById("buy").value);
-  const sell = Number(document.getElementById("sell").value);
-  const costs = Number(document.getElementById("costs").value);
-  const fee = Number(document.getElementById("fee").value);
-  const name = document.getElementById("product").value.trim();
+function showPage(name) {
+  document.querySelectorAll(".page").forEach(p =>
+    p.classList.toggle("active", p.id === "page-"+name));
+  document.querySelectorAll(".nav-btn").forEach(b =>
+    b.classList.toggle("active", b.dataset.page === name));
+  const labels = {
+    dashboard:"Dashboard", calculator:"Kalkulator",
+    products:"Moje produkty", history:"Historia analiz", settings:"Ustawienia"
+  };
+  $("topTitle").textContent=labels[name] || "FlipProfit";
+  if(name==="products") renderProducts();
+  if(name==="history") renderHistory();
+  if(name==="dashboard") renderDashboard();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+document.querySelectorAll("[data-page]").forEach(btn =>
+  btn.addEventListener("click",()=>showPage(btn.dataset.page)));
+document.querySelectorAll("[data-goto]").forEach(btn =>
+  btn.addEventListener("click",()=>showPage(btn.dataset.goto)));
 
-  if (
-    ![buy, sell, costs, fee].every(Number.isFinite) ||
-    buy < 0 || sell < 0 || costs < 0 || fee < 0 || fee > 100
-  ) {
-    alert("Sprawdź dane kalkulatora.");
-    return;
-  }
+["calcName","calcBuy","calcSell","calcCosts","calcFee"].forEach(id =>
+  $(id).addEventListener("input",updateCalculator));
+["maxSell","maxCosts","maxFee","maxProfit"].forEach(id =>
+  $(id).addEventListener("input",updateMaxBuy));
 
-  const profit = sell * (1 - fee / 100) - buy - costs;
-  const history = getHistory();
-
-  history.unshift({
-    name: name || "Produkt bez nazwy",
-    buy,
-    sell,
-    profit,
-    date: new Date().toISOString()
-  });
-
+$("calcForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const v=getCalcValues();
+  if(!validateEconomics(v)) return alert("Sprawdź wartości. Prowizja musi być mniejsza niż 100%.");
+  const list=readArray(STORAGE.history);
+  list.unshift({...v,profit:profitOf(v),date:new Date().toISOString()});
   try {
-    localStorage.setItem(historyKey, JSON.stringify(history.slice(0, 50)));
+    saveArray(STORAGE.history,list.slice(0,500));
     renderHistory();
-    alert("Analiza została zapisana!");
+    alert("Analiza zapisana w historii.");
   } catch {
-    alert("Nie udało się zapisać danych w przeglądarce.");
+    alert("Brak miejsca na zapis. Wyeksportuj dane i usuń niepotrzebne wpisy.");
+  }
+});
+$("addCalcProduct").addEventListener("click",()=>{
+  const v=getCalcValues();
+  if(!v.name) return alert("Najpierw wpisz nazwę produktu.");
+  if(!validateEconomics(v)) return alert("Sprawdź dane kalkulatora.");
+  openEditor({...v,id:"",platform:"Inne"});
+  showPage("products");
+});
+
+function openEditor(item=null) {
+  $("productEditor").style.display="block";
+  $("editorTitle").textContent=item && item.id ? "Edytuj produkt" : "Nowy produkt";
+  $("editId").value=item?.id || "";
+  $("prodName").value=item?.name || $("calcName").value || "";
+  $("prodPlatform").value=item?.platform || "OLX";
+  $("prodBuy").value=item?.buy ?? $("calcBuy").value ?? 0;
+  $("prodSell").value=item?.sell ?? $("calcSell").value ?? 0;
+  $("prodCosts").value=item?.costs ?? $("calcCosts").value ?? 0;
+  $("prodFee").value=item?.fee ?? $("calcFee").value ?? 0;
+  $("productEditor").scrollIntoView({behavior:"smooth",block:"start"});
+}
+$("newProductBtn").addEventListener("click",()=>openEditor());
+$("cancelProduct").addEventListener("click",()=>{
+  $("productEditor").style.display="none";
+  $("productForm").reset();
+});
+$("productForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const item={
+    id:$("editId").value || makeId(),
+    name:$("prodName").value.trim(),
+    platform:$("prodPlatform").value,
+    buy:Number($("prodBuy").value),
+    sell:Number($("prodSell").value),
+    costs:Number($("prodCosts").value),
+    fee:Number($("prodFee").value)
+  };
+  if(!item.name) return alert("Podaj nazwę produktu.");
+  if(!validateEconomics(item)) return alert("Sprawdź ceny, koszty i prowizję.");
+  const list=readArray(STORAGE.products);
+  const old=list.find(x=>x.id===item.id);
+  if(old) {
+    Object.assign(old,item);
+  } else {
+    item.status="active";
+    item.created=new Date().toISOString();
+    list.unshift(item);
+  }
+  try {
+    saveArray(STORAGE.products,list);
+    $("productEditor").style.display="none";
+    $("productForm").reset();
+    renderProducts();renderDashboard();
+  } catch {
+    alert("Nie udało się zapisać produktu. Sprawdź wolne miejsce w przeglądarce.");
   }
 });
 
-document.getElementById("clearHistory").addEventListener("click", () => {
-  if (!confirm("Czy na pewno usunąć całą historię analiz?")) return;
+function renderProducts() {
+  const q=$("productSearch").value.trim().toLowerCase();
+  const filter=$("productFilter").value;
+  const list=readArray(STORAGE.products).filter(p=>
+    String(p.name).toLowerCase().includes(q) &&
+    (filter==="all" || p.status===filter));
+  const body=$("productsBody");
+  body.replaceChildren();
+  $("productsEmpty").style.display=list.length?"none":"block";
 
-  localStorage.removeItem(historyKey);
-  renderHistory();
+  list.forEach(p=>{
+    const tr=document.createElement("tr");
+    const cells=[
+      {text:p.name,cls:"product-name"},
+      {text:p.status==="sold"?"Sprzedany":"Aktywny",
+       cls:"status "+(p.status==="sold"?"sold":"active")},
+      {text:money(p.buy)},
+      {text:money(p.sell)},
+      {text:money(profitOf(p,p.status==="sold")),
+       cls:profitOf(p,p.status==="sold")>=0?"green":"red"}
+    ];
+    cells.forEach(c=>{
+      const td=document.createElement("td");
+      td.textContent=c.text;
+      if(c.cls) td.className=c.cls;
+      tr.appendChild(td);
+    });
+    const actions=document.createElement("td");
+    const edit=document.createElement("button");
+    edit.className="btn btn-small";edit.textContent="Edytuj";
+    edit.addEventListener("click",()=>openEditor(p));
+    actions.appendChild(edit);
+
+    if(p.status!=="sold") {
+      const sold=document.createElement("button");
+      sold.className="btn btn-small";sold.style.marginLeft="5px";
+      sold.textContent="Sprzedaj";
+      sold.addEventListener("click",()=>markSold(p.id));
+      actions.appendChild(sold);
+    } else {
+      const undo=document.createElement("button");
+      undo.className="btn btn-small";undo.style.marginLeft="5px";
+      undo.textContent="Cofnij";
+      undo.addEventListener("click",()=>undoSold(p.id));
+      actions.appendChild(undo);
+    }
+    const del=document.createElement("button");
+    del.className="btn btn-small btn-danger";del.style.marginLeft="5px";
+    del.textContent="Usuń";
+    del.addEventListener("click",()=>deleteProduct(p.id));
+    actions.appendChild(del);
+    tr.appendChild(actions);
+    body.appendChild(tr);
+  });
+}
+$("productSearch").addEventListener("input",renderProducts);
+$("productFilter").addEventListener("change",renderProducts);
+
+function markSold(id) {
+  const p=readArray(STORAGE.products).find(x=>x.id===id);
+  if(!p) return;
+  const answer=prompt("Podaj faktyczną cenę sprzedaży w zł:",String(p.sell));
+  if(answer===null) return;
+  const actual=Number(answer);
+  if(answer.trim()==="" || !Number.isFinite(actual) || actual<0)
+    return alert("Wpisz prawidłową cenę sprzedaży.");
+  p.status="sold";
+  p.actualSell=actual;
+  p.soldAt=new Date().toISOString();
+  try {
+    saveArray(STORAGE.products,readArray(STORAGE.products).map(x=>x.id===id?p:x));
+    renderProducts();renderDashboard();
+  } catch { alert("Nie udało się zapisać zmian."); }
+}
+function undoSold(id) {
+  const list=readArray(STORAGE.products);
+  const p=list.find(x=>x.id===id);
+  if(!p) return;
+  p.status="active";delete p.actualSell;delete p.soldAt;
+  saveArray(STORAGE.products,list);
+  renderProducts();renderDashboard();
+}
+function deleteProduct(id) {
+  if(!confirm("Usunąć ten produkt z portfela?")) return;
+  saveArray(STORAGE.products,readArray(STORAGE.products).filter(p=>p.id!==id));
+  renderProducts();renderDashboard();
+}
+
+function renderDashboard() {
+  const list=readArray(STORAGE.products);
+  const active=list.filter(p=>p.status!=="sold");
+  const sold=list.filter(p=>p.status==="sold");
+  const capital=active.reduce((s,p)=>s+Number(p.buy)+Number(p.costs),0);
+  const potential=active.reduce((s,p)=>s+profitOf(p),0);
+  const realized=sold.reduce((s,p)=>s+profitOf(p,true),0);
+  $("dashActive").textContent=active.length;
+  $("dashCapital").textContent=money(capital);
+  $("dashPotential").textContent=money(potential);
+  $("dashPotential").className="stat-value "+(potential>=0?"green":"red");
+  $("dashRealized").textContent=money(realized);
+  $("dashRealized").className="stat-value "+(realized>=0?"green":"red");
+
+  const goal=readGoal();
+  $("goalInput").value=goal;
+  $("settingsGoal").value=goal;
+  const progress=Math.max(0,Math.min(100,realized/goal*100));
+  $("goalBar").style.width=progress+"%";
+  $("goalProgress").textContent=pct(progress);
+
+  const container=$("dashProducts");
+  container.replaceChildren();
+  const recent=list.slice(0,5);
+  if(!recent.length) {
+    container.className="empty";
+    container.textContent="Dodaj swój pierwszy produkt.";
+    return;
+  }
+  container.className="";
+  recent.forEach(p=>{
+    const row=document.createElement("div");row.className="history-row";
+    const left=document.createElement("div");
+    const name=document.createElement("strong");name.textContent=p.name;
+    const sub=document.createElement("small");
+    sub.textContent=(p.status==="sold"?"Sprzedany":"Aktywny")+" · "+p.platform;
+    left.append(name,sub);
+    const right=document.createElement("strong");
+    const val=profitOf(p,p.status==="sold");
+    right.textContent=money(val);right.className=val>=0?"green":"red";
+    row.append(left,right);container.appendChild(row);
+  });
+}
+function renderHistory() {
+  const list=readArray(STORAGE.history);
+  const container=$("historyList");container.replaceChildren();
+  if(!list.length) {
+    container.className="empty";
+    container.textContent="Nie zapisano jeszcze żadnej analizy.";
+    return;
+  }
+  container.className="";
+  list.forEach(item=>{
+    const row=document.createElement("div");row.className="history-row";
+    const left=document.createElement("div");
+    const name=document.createElement("strong");
+    name.textContent=item.name || "Produkt bez nazwy";
+    const sub=document.createElement("small");
+    sub.textContent=new Date(item.date).toLocaleString("pl-PL")+
+      " · Zakup "+money(item.buy)+" · Sprzedaż "+money(item.sell);
+    left.append(name,sub);
+    const right=document.createElement("strong");
+    right.textContent=money(item.profit);
+    right.className=Number(item.profit)>=0?"green":"red";
+    row.append(left,right);container.appendChild(row);
+  });
+}
+function exportCSV(items,filename,headers) {
+  const csv=[headers.map(escapeCSV).join(";"),
+    ...items.map(row=>row.map(escapeCSV).join(";"))].join("\r\n");
+  downloadFile(filename,"\uFEFF"+csv,"text/csv;charset=utf-8;");
+}
+$("exportProducts").addEventListener("click",()=>{
+  const list=readArray(STORAGE.products);
+  if(!list.length) return alert("Nie ma produktów do eksportu.");
+  exportCSV(list.map(p=>[
+    p.name,p.platform,p.status,p.buy,p.sell,p.costs,p.fee,
+    p.status==="sold"?p.actualSell:"",profitOf(p,p.status==="sold"),
+    p.created||"",p.soldAt||""
+  ]),"flipprofit-produkty.csv",[
+    "Produkt","Platforma","Status","Zakup","Planowana sprzedaż",
+    "Koszty","Prowizja %","Faktyczna sprzedaż","Zysk","Data dodania","Data sprzedaży"
+  ]);
+});
+$("exportHistory").addEventListener("click",()=>{
+  const list=readArray(STORAGE.history);
+  if(!list.length) return alert("Historia jest pusta.");
+  exportCSV(list.map(p=>[
+    p.name,p.buy,p.sell,p.costs,p.fee,p.profit,p.date
+  ]),"flipprofit-historia.csv",[
+    "Produkt","Zakup","Sprzedaż","Koszty","Prowizja %","Zysk","Data"
+  ]);
+});
+$("clearHistory").addEventListener("click",()=>{
+  if(!confirm("Na pewno usunąć całą historię analiz?")) return;
+  localStorage.removeItem(STORAGE.history);renderHistory();
 });
 
-renderHistory();
+function saveGoal() {
+  const goal=Number($("settingsGoal").value);
+  if(!Number.isFinite(goal)||goal<=0) return alert("Cel musi być większy od zera.");
+  localStorage.setItem(STORAGE.goal,String(goal));
+  $("goalInput").value=goal;
+  renderDashboard();
+  alert("Cel został zapisany.");
+}
+$("saveGoal").addEventListener("click",saveGoal);
+$("goalInput").addEventListener("change",()=>{
+  const goal=Number($("goalInput").value);
+  if(Number.isFinite(goal)&&goal>0) {
+    localStorage.setItem(STORAGE.goal,String(goal));
+    renderDashboard();
+  }
+});
+$("backupData").addEventListener("click",()=>{
+  const backup={
+    format:"FlipProfitBackup",
+    version:2,
+    exportedAt:new Date().toISOString(),
+    products:readArray(STORAGE.products),
+    history:readArray(STORAGE.history),
+    goal:readGoal()
+  };
+  downloadFile("flipprofit-backup.json",JSON.stringify(backup,null,2),
+    "application/json");
+});
+$("restoreData").addEventListener("click",async()=>{
+  const file=$("restoreFile").files[0];
+  if(!file) return alert("Najpierw wybierz plik JSON.");
+  try {
+    const data=JSON.parse(await file.text());
+    if(data.format!=="FlipProfitBackup" ||
+      !Array.isArray(data.products)||!Array.isArray(data.history))
+      throw new Error("Nieprawidłowy format");
+    if(!confirm("Przywrócenie kopii zastąpi obecne produkty i historię. Kontynuować?"))
+      return;
+    saveArray(STORAGE.products,data.products);
+    saveArray(STORAGE.history,data.history);
+    if(Number.isFinite(Number(data.goal))&&Number(data.goal)>0)
+      localStorage.setItem(STORAGE.goal,String(data.goal));
+    renderDashboard();renderProducts();renderHistory();
+    alert("Dane zostały przywrócone.");
+  } catch {
+    alert("Nie udało się odczytać kopii. Sprawdź, czy to plik FlipProfit JSON.");
+  }
+});
+$("deleteAll").addEventListener("click",()=>{
+  if(!confirm("To usunie produkty, historię i cel finansowy z tej przeglądarki. Czy na pewno?"))
+    return;
+  Object.values(STORAGE).forEach(k=>localStorage.removeItem(k));
+  renderDashboard();renderProducts();renderHistory();
+  alert("Dane lokalne zostały usunięte.");
+});
 
-    calculate();
-  </script>
+refreshCalculator();
+renderDashboard();
+renderProducts();
+renderHistory();
+</script>
 </body>
 </html>
